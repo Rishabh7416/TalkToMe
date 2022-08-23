@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "675012627357",
+    "project_id": "talktome-2ff6f",
+    "storage_bucket": "talktome-2ff6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675012627357:android:a84d65606cb349dbdbbd74",
+        "android_client_info": {
+          "package_name": "com.talktome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675012627357-kqaqi0rr0vlc56ovegc9g9bobnjddn7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO8V8m6MmvaIwhRVX-_OLQGF2Hcapz3SU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675012627357-kqaqi0rr0vlc56ovegc9g9bobnjddn7l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "675012627357-fop5cjta7d7no3psa4v6qt0tcfjth5q6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.TalkTome"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
