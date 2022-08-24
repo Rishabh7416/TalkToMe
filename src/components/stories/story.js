@@ -16,7 +16,7 @@ export default function Story({horizontal, mainContainer}) {
   }
   
   return (
-    <View style = {mainContainer}>
+    <View style = {storyStyles.mainContainer}>
       <FlatList
         data={userData}
         renderItem={renderItem}

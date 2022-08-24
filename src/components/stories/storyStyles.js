@@ -8,4 +8,8 @@ export const storyStyles = StyleSheet.create({
     borderRadius: normalize(100 / 2),
     marginRight: vw(16),
   },
+  mainContainer:{
+    paddingHorizontal: vw(20),
+    marginVertical: vh(15),
+  }
 });

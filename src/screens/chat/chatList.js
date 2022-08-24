@@ -2,44 +2,28 @@ import React from 'react';
 import {chatListStyles} from './chatListStyles';
 import Story from '../../components/stories/story';
 import {userData} from '../../constants/localData';
-import {normalize, vh, vw} from '../../utils/dimensions';
+import {useNavigation} from '@react-navigation/native';
 import MainHeader from '../../components/headers/mainHeader';
 import CustomUserList from '../../components/userList/customUserList';
 
 export default function ChatList() {
+  const navigation = useNavigation();
+
+  function handleNavigation() {
+    navigation.goBack('Contacts');
+  }
+
   function listHeaderComponent() {
     return (
       <React.Fragment>
-        <Story
-          horizontal={true}
-          mainContainer={{
-            paddingHorizontal: vw(20),
-            marginVertical: vh(15)
-          }}
-        />
+        <Story horizontal={true}/>
       </React.Fragment>
     );
   }
 
   return (
     <React.Fragment>
-      <MainHeader
-        mainContainer={{
-          height: vh(42),
-          justifyContent: 'space-between',
-          paddingHorizontal: vw(20),
-          flexDirection: 'row',
-        }}
-        textStyle={{
-          fontWeight: 'bold',
-          fontSize: 26,
-          marginLeft: 40,
-        }}
-        headerContainer={{
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      />
+      <MainHeader handleNavigation={() => handleNavigation()} />
       <CustomUserList
         userData={userData}
         userNameStyle={chatListStyles.userNameStyle}
@@ -49,7 +33,7 @@ export default function ChatList() {
         mainContainer={chatListStyles.mainContainer}
         listHeaderComponent={listHeaderComponent}
         contentContainerStyle={chatListStyles.flatlistContainerStyle}
-        bounces = {false}
+        bounces={false}
       />
     </React.Fragment>
   );
