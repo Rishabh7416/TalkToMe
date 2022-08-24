@@ -18,9 +18,12 @@ export default function Routes() {
           name="Contacts"
           component={ContactList}
           options={{
+            tabBarLabel: () => {
+              return null;
+            },
             tabBarIcon: ({focused}) => (
               <Image
-                source={focused ? require('../assets/images/contactsIcon.png') : ''}
+                source={require('../assets/images/contactsIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -30,11 +33,12 @@ export default function Routes() {
           name="Chat"
           component={ChatList}
           options={{
+            tabBarLabel: () => {
+              return null;
+            },
             tabBarIcon: ({focused}) => (
               <Image
-                source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/456/456283.png',
-                }}
+                source={require('../assets/images/contactsIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -44,11 +48,12 @@ export default function Routes() {
           name="Video"
           component={VideoCall}
           options={{
+            tabBarLabel: () => {
+              return null;
+            },
             tabBarIcon: ({focused}) => (
               <Image
-                source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/456/456283.png',
-                }}
+                source={require('../assets/images/contactsIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -58,11 +63,12 @@ export default function Routes() {
           name="Settings"
           component={Settings}
           options={{
+            tabBarLabel: () => {
+              return null;
+            },
             tabBarIcon: ({focused}) => (
               <Image
-                source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/456/456283.png',
-                }}
+                source={require('../assets/images/contactsIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
