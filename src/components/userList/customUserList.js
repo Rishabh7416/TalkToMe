@@ -9,7 +9,7 @@ export default function CustomUserList({
   userMessageStyle,
   userProfileImage,
   listHeaderComponent,
-  bounces
+  bounces,
 }) {
   function renderItem({item}) {
     return (
@@ -32,7 +32,7 @@ export default function CustomUserList({
         renderItem={renderItem}
         ListHeaderComponent={listHeaderComponent}
         showsVerticalScrollIndicator={false}
-        bounces = {bounces}
+        bounces={bounces}
       />
     </View>
   );

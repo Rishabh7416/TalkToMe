@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
-import Story from './src/components/stories/story';
-import ChatList from './src/screens/chat/chatList';
+import Routes from './src/routes/routes';
+import {SafeAreaView} from 'react-native';
 
 export default function App() {
   return (
     <SafeAreaView style = {{flex: 1}}>
-      <ChatList/>
+      <Routes/>
     </SafeAreaView>
   );
 }
