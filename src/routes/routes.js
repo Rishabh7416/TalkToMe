@@ -1,13 +1,13 @@
 import React from 'react';
 import {Image} from 'react-native';
+import {vw} from '../utils/dimensions';
+import {routeStyles} from './routeStyles';
 import ChatList from '../screens/chat/chatList';
 import VideoCall from '../screens/video/videoCall';
 import Settings from '../screens/settings/settings';
 import ContactList from '../screens/contacts/contactList';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {vw} from '../utils/dimensions';
-import {routeStyles} from './routeStyles';
 
 const BottomTabs = createBottomTabNavigator();
 
