@@ -6,7 +6,8 @@ import Settings from '../screens/settings/settings';
 import ContactList from '../screens/contacts/contactList';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { vw, vh, normalize } from '../utils/dimensions';
+import {vw} from '../utils/dimensions';
+import {routeStyles} from './routeStyles';
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -24,7 +25,7 @@ export default function Routes() {
             tabBarIcon: ({focused}) => (
               <Image
                 source={require('../assets/images/contactIcon.png')}
-                style={{height: vw(20), width: vw(20), resizeMode: 'contain'}}
+                style={routeStyles.iconStyle}
               />
             ),
           }}
@@ -39,7 +40,11 @@ export default function Routes() {
             tabBarIcon: ({focused}) => (
               <Image
                 source={require('../assets/images/chatIcon.png')}
-                style={{height: vw(25), width: vw(25), resizeMode: 'contain'}}
+                style={{
+                  height: vw(19),
+                  width: vw(25.33),
+                  resizeMode: 'contain',
+                }}
               />
             ),
           }}
@@ -54,7 +59,7 @@ export default function Routes() {
             tabBarIcon: ({focused}) => (
               <Image
                 source={require('../assets/images/video.png')}
-                style={{height: vw(20), width: vw(20), resizeMode: 'contain'}}
+                style={{width: 22, height: 20.62, resizeMode: 'contain'}}
               />
             ),
           }}
@@ -69,7 +74,7 @@ export default function Routes() {
             tabBarIcon: ({focused}) => (
               <Image
                 source={require('../assets/images/settings.png')}
-                style={{height: vw(20), width: vw(20), resizeMode: 'contain'}}
+                style={{width: 19.47, height: 20}}
               />
             ),
           }}
