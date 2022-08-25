@@ -1,14 +1,27 @@
 import React from 'react';
 import {Image} from 'react-native';
+import LoginScreen from '../screens/login';
 import ChatList from '../screens/chat/chatList';
-import {LocalImages} from '../utils/localImages';
 import VideoCall from '../screens/video/videoCall';
 import Settings from '../screens/settings/settings';
 import ContactList from '../screens/contacts/contactList';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
+
+export const StackNavigation = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="login" component={LoginScreen} />
+        <Stack.Screen name='routes' component={Routes}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default function Routes() {
   return (

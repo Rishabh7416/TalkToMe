@@ -59,13 +59,12 @@ export default styles = StyleSheet.create({
     right: 10,
     height: 125,
     width: 150,
-    resizeMode: 'cover',
   },
   WomanInOfficeImageStyle: {
     marginTop: 100,
     marginLeft: 20,
     height: 120,
     width: 150,
-    resizeMode: 'cover',
+  
   },
 });
