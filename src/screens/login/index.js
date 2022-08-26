@@ -21,15 +21,16 @@ const LoginScreen = () => {
         style={loginStyle.WomanInOfficeImageStyle}
         source={LocalImages.WomanInOffice}
       />
-      <Text style={loginStyle.bigText}>Let’s Get Started</Text>
-      <Text style={loginStyle.descriptionText}>
+
+      <View style={loginStyle.secondView}>
+        <View style={loginStyle.bigTextView} >
+        <Text  style={loginStyle.bigText}>Let’s Get Started</Text>
+        </View>
+        <Text style={loginStyle.descriptionText}>
         Connect with each other while chatting or calling. Enjoy safe and
         private texting
       </Text>
-
-      {/* <TouchableOpacity activeOpacity={0.7} style={loginStyle.btnStyle}>
-        <Text>Join Now</Text>
-      </TouchableOpacity> */}
+    
       <CustomButton onPress={()=>(
         console.log('press')
       )}
@@ -50,6 +51,8 @@ const LoginScreen = () => {
           <Text style={loginStyle.loginText2}>{'Login'}</Text>
         </TouchableOpacity>
       </View>
+      </View>
+   
 
       <Modal
         animationOut={'slideOutDown'}
