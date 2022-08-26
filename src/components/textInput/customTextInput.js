@@ -7,6 +7,7 @@ export default function CustomTextInput({
   placeholder,
   mainContainer,
   textInputStyle,
+  searchFunction,
   placeholderTextColor,
 }) {
   return (
@@ -16,6 +17,7 @@ export default function CustomTextInput({
         style={{height: 20, width: 20, resizeMode: 'contain'}}
       />
       <TextInput
+        onChangeText={searchFunction}
         placeholderTextColor={placeholderTextColor}
         placeholder={placeholder}
         style={textInputStyle}

@@ -22,6 +22,7 @@ export default function Story({horizontal, mainContainer}) {
         renderItem={renderItem}
         horizontal={horizontal}
         showsHorizontalScrollIndicator={false}
+        bounces={false}
       />
     </View>
   );

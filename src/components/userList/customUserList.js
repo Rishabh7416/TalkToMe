@@ -2,14 +2,15 @@ import React from 'react';
 import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 
 export default function CustomUserList({
+  bounces,
   userData,
   mainContainer,
   userNameStyle,
   detailsContainer,
   userMessageStyle,
   userProfileImage,
+  ListEmptyComponent,
   listHeaderComponent,
-  bounces,
 }) {
   function renderItem({item}) {
     return (
@@ -33,6 +34,7 @@ export default function CustomUserList({
         ListHeaderComponent={listHeaderComponent}
         showsVerticalScrollIndicator={false}
         bounces={bounces}
+        ListEmptyComponent={ListEmptyComponent}
       />
     </View>
   );
