@@ -17,7 +17,10 @@ const BottomTabs = createBottomTabNavigator();
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
         <Stack.Screen name="screens" component={BottomTabRoutes} />
         <Stack.Screen name="chatlistscreen" component={ChatList} />
         <Stack.Screen name="chatscreen" component={ChatScreen} />

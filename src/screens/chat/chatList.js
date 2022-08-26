@@ -29,7 +29,7 @@ export default React.memo(function ChatList() {
       <React.Fragment>
         <Story horizontal={true} />
       </React.Fragment>
-    );
+    );  
   }
 
   function listEmptyFunction(){
