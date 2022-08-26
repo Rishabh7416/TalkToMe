@@ -1,4 +1,5 @@
 import React from 'react';
+import { View, Text } from 'react-native';
 import {chatListStyles} from './chatListStyles';
 import Story from '../../components/stories/story';
 import {userData} from '../../constants/localData';
@@ -7,7 +8,6 @@ import {useNavigation} from '@react-navigation/native';
 import MainHeader from '../../components/headers/mainHeader';
 import CustomUserList from '../../components/userList/customUserList';
 import CustomTextInput from '../../components/textInput/customTextInput';
-import { View, Text } from 'react-native';
 
 export default React.memo(function ChatList() {
   const navigation = useNavigation();
@@ -64,6 +64,7 @@ export default React.memo(function ChatList() {
         contentContainerStyle={chatListStyles.flatlistContainerStyle}
         bounces={false}
         ListEmptyComponent={listEmptyFunction}
+        navigationToChatScreen={() => navigation.navigate('chatscreen')}
       />
     </React.Fragment>
   );

@@ -11,21 +11,23 @@ export default function CustomUserList({
   userProfileImage,
   ListEmptyComponent,
   listHeaderComponent,
+  navigationToChatScreen,
 }) {
   function renderItem({item}) {
     return (
-      <View style={detailsContainer}>
+      <TouchableOpacity
+        style={detailsContainer}
+        onPress={navigationToChatScreen}>
         <TouchableOpacity>
           <Image source={{uri: item.profilePic}} style={userProfileImage} />
         </TouchableOpacity>
-        <View>
+        <TouchableOpacity onPress={navigationToChatScreen}>
           <Text style={userNameStyle}>{item.name}</Text>
           <Text style={userMessageStyle}>{item.message}</Text>
-        </View>
-      </View>
+        </TouchableOpacity>
+      </TouchableOpacity>
     );
   }
-
   return (
     <View style={mainContainer}>
       <FlatList
