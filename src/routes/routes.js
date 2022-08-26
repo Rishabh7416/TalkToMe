@@ -2,7 +2,6 @@ import React from 'react';
 import {Image} from 'react-native';
 import LoginScreen from '../screens/login';
 import ChatList from '../screens/chat/chatList';
-import ChatList from '../screens/chat/chatList';
 import VideoCall from '../screens/video/videoCall';
 import Settings from '../screens/settings/settings';
 import ContactList from '../screens/contacts/contactList';
