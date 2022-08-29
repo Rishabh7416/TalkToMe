@@ -1,14 +1,30 @@
 import auth from '@react-native-firebase/auth';
 
-export const PhoneNumberSignIn = async (PhnNum, callbackFun) => {
+export const signInWithPhoneNumberOtp = async (
+  phoneNumber,
+  successCallbackFun,
+  failureCallbackFun,
+) => {
   try {
-    const response = await auth().signInWithPhoneNumber(PhnNum);
-    callbackFun(response);
-  } catch (err) {
-    console.log(err);
+    const otpResponse = await auth().signInWithPhoneNumber(phoneNumber);
+    successCallbackFun(otpResponse);
+  } catch (error) {
+    failureCallbackFun();
   }
 };
 
-export const OtpVerification = params => {
-  console.log(params);
+export const _verification = async (
+  otp,
+  confirmOtp,
+  successCallbackFun,
+  failureCallbackFun,
+) => {
+  try {
+    const user = await confirmOtp.confirm(otp);
+    successCallbackFun(user);
+  } catch (error) {
+    failureCallbackFun();
+  }
 };
+
+export const ErrorCode = () => {};
