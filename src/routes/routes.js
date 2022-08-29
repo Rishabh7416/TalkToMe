@@ -25,7 +25,7 @@ export const StackNavigation = () => {
 
 export default function Routes() {
   return (
-    <NavigationContainer>
+    
       <BottomTabs.Navigator screenOptions={{headerShown: false}}>
         <BottomTabs.Screen
           name="Contacts"
@@ -88,6 +88,5 @@ export default function Routes() {
           }}
         />
       </BottomTabs.Navigator>
-    </NavigationContainer>
   );
 }

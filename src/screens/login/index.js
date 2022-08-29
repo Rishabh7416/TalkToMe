@@ -1,12 +1,21 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import loginStyle from './loginStyle';
 import LocalImages from '../../utils/localImages';
 import Modal from 'react-native-modal';
 import ModalView from './Modal';
 import CustomButton from '../../components/button/customButton';
+import { strings } from '../../constants/string';
 const LoginScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [otpModalVisible,setOtpModalVisible] =useState(false);
+  const [count,setCount]=useState(false);
+const modalCallBack=()=>{
+  console.log('my modal call back funtuon');
+}
+  
+
+
   return (
     <View style={loginStyle.main}>
       <Image
@@ -61,9 +70,12 @@ const LoginScreen = () => {
         onBackdropPress={() => {
           setModalVisible(false)
         }}
+        
         isVisible={isModalVisible}>
-        <ModalView />
+       <ModalView/>
       </Modal>
+
+    
     </View>
   );
 };
