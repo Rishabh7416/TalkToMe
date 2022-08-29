@@ -5,8 +5,8 @@ import LocalImages from '../../utils/localImages';
 import Modal from 'react-native-modal';
 import ModalView from './Modal';
 import CustomButton from '../../components/button/customButton';
-import { strings } from '../../constants/string';
 const LoginScreen = () => {
+  const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   const [otpModalVisible,setOtpModalVisible] =useState(false);
   const [count,setCount]=useState(false);
@@ -32,48 +32,44 @@ const modalCallBack=()=>{
       />
 
       <View style={loginStyle.secondView}>
-        <View style={loginStyle.bigTextView} >
-        <Text  style={loginStyle.bigText}>Let’s Get Started</Text>
+        <View style={loginStyle.bigTextView}>
+          <Text style={loginStyle.bigText}>Let’s Get Started</Text>
         </View>
         <Text style={loginStyle.descriptionText}>
-        Connect with each other while chatting or calling. Enjoy safe and
-        private texting
-      </Text>
-    
-      <CustomButton onPress={()=>(
-        console.log('press')
-      )}
-      ViewStyle={loginStyle.btnStyle}
-      text={'Join Now'}
-      />
-
-      <View style={loginStyle.AreadyLoginViewStyle}>
-        <Text style={loginStyle.loginText1}>
-          {' '}
-          {'Already have an account? '}
+          Connect with each other while chatting or calling. Enjoy safe and
+          private texting
         </Text>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => {
-            setModalVisible(!isModalVisible);
-          }}>
-          <Text style={loginStyle.loginText2}>{'Login'}</Text>
-        </TouchableOpacity>
+        <CustomButton
+          onPress={() => console.log('press')}
+          ViewStyle={loginStyle.btnStyle}
+          text={'Join Now'}
+        />
+        <View style={loginStyle.AreadyLoginViewStyle}>
+          <Text style={loginStyle.loginText1}>
+            {' '}
+            {'Already have an account? '}
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+              setModalVisible(!isModalVisible);
+            }}>
+            <Text style={loginStyle.loginText2}>{'Login'}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      </View>
-   
 
-      <Modal
+      {/* <Modal
         animationOut={'slideOutDown'}
         animationIn={'slideInUp'}
-        style={{marginBottom:0,marginHorizontal:0,}}
+        style={{marginBottom: 0, marginHorizontal: 0}}
         onBackdropPress={() => {
-          setModalVisible(false)
+          setModalVisible(false);
         }}
         
         isVisible={isModalVisible}>
        <ModalView/>
-      </Modal>
+      </Modal> */}
 
     
     </View>

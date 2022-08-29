@@ -30,6 +30,21 @@ export const chatListStyles = StyleSheet.create({
   flatlistContainerStyle:{
     flexDirection: 'row'
   },
-  
-  
+  textInputStyle: {
+    height: vh(42),
+    fontSize: normalize(14),
+    width: '60%',
+    lineHeight: vh(21),
+    fontWeight: '500',
+  },
+  textInputMainContainer: {
+    alignSelf: 'center',
+    width: '90%',
+    borderWidth: 0.2,
+    borderRadius: 20,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginVertical: vh(15)
+  },
 });

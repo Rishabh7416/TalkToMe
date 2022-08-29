@@ -4,6 +4,7 @@ import LoginScreen from '../screens/login';
 import ChatList from '../screens/chat/chatList';
 import VideoCall from '../screens/video/videoCall';
 import Settings from '../screens/settings/settings';
+import ChatScreen from '../screens/chatscreen/chatScreen';
 import ContactList from '../screens/contacts/contactList';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -25,6 +26,7 @@ export const StackNavigation = () => {
 
 export default function Routes() {
   return (
+
     
       <BottomTabs.Navigator screenOptions={{headerShown: false}}>
         <BottomTabs.Screen
@@ -36,7 +38,7 @@ export default function Routes() {
             },
             tabBarIcon: ({focused}) => (
               <Image
-                source={require('../assets/images/contactsIcon.png')}
+                // source={require('../assets/images/contactsIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -51,7 +53,7 @@ export default function Routes() {
             },
             tabBarIcon: ({focused}) => (
               <Image
-                source={require('../assets/images/contactsIcon.png')}
+                // source={require('../assets/images/contactsIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -66,7 +68,7 @@ export default function Routes() {
             },
             tabBarIcon: ({focused}) => (
               <Image
-                source={require('../assets/images/contactsIcon.png')}
+                // source={require('../assets/images/contactsIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -81,12 +83,12 @@ export default function Routes() {
             },
             tabBarIcon: ({focused}) => (
               <Image
-                source={require('../assets/images/contactsIcon.png')}
+                // source={require('../assets/images/contactsIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
           }}
         />
       </BottomTabs.Navigator>
-  );
+  )
 }
