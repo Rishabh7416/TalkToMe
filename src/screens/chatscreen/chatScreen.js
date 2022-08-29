@@ -1,6 +1,10 @@
-import React from 'react';
-import CustomChatScreen from '../../components/chatscreen/customChatScreen';
+import { View, Text } from 'react-native'
+import React from 'react'
 
 export default function ChatScreen() {
-  return <CustomChatScreen />;
+  return (
+    <View>
+      <Text>C</Text>
+    </View>
+  )
 }
