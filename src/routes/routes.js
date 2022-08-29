@@ -1,7 +1,6 @@
 import React from 'react';
 import {Image} from 'react-native';
-import {vw} from '../utils/dimensions';
-import {routeStyles} from './routeStyles';
+import LoginScreen from '../screens/login';
 import ChatList from '../screens/chat/chatList';
 import VideoCall from '../screens/video/videoCall';
 import Settings from '../screens/settings/settings';
@@ -13,6 +12,17 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
+
+export const StackNavigation = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="login" component={LoginScreen} />
+        <Stack.Screen name='routes' component={Routes}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default function Routes() {
   return (
