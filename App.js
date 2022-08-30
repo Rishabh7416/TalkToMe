@@ -1,11 +1,19 @@
 import React from 'react';
-import Routes from './src/routes/routes';
+import {Provider} from 'react-redux';
 import {SafeAreaView} from 'react-native';
+import {Store} from './src/redux/store/sagaStore';
+// import {StackNavigation} from './src/routes/routes';
+import Trail from './src/trialFolder/trial'
 
-export default function App() {
+const App = () => {
   return (
-    <SafeAreaView style = {{flex: 1}}>
-      <Routes/>
+    <SafeAreaView style={{flex: 1}}>
+      <Provider store={Store}>
+        {/* <StackNavigation /> */}
+        <Trail/>
+      </Provider>
     </SafeAreaView>
   );
-}
+};
+
+export default App;

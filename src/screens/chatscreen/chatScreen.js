@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function ContactList() {
+export default function ChatScreen() {
   return (
     <View>
-      <Text>contactList</Text>
+      <Text>C</Text>
     </View>
   )
 }
