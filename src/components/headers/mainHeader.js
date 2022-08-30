@@ -2,7 +2,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {mainHeaderStyles} from './mainHeaderStyles';
 
-export default function MainHeader({handleNavigation}) {
+export default function MainHeader({handleNavigation, headerText}) {
   return (
     <View style={mainHeaderStyles.mainContainer}>
       <TouchableOpacity
@@ -14,7 +14,11 @@ export default function MainHeader({handleNavigation}) {
           }}
           style={{height: 20, width: 20}}
         />
-        <Text style={mainHeaderStyles.textStyle}>{'Chat'}</Text>
+        <Image
+          // source={}
+          style={{height: 20, width: 20}}
+        />
+        <Text style={mainHeaderStyles.textStyle}>{headerText}</Text>
       </TouchableOpacity>
     </View>
   );

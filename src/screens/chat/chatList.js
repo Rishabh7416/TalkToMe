@@ -43,7 +43,7 @@ export default React.memo(function ChatList() {
 
   return (
     <React.Fragment>
-      <MainHeader handleNavigation={() => handleNavigation()} />
+      <MainHeader handleNavigation={() => handleNavigation()} headerText = {'Chat'}/>
       <CustomTextInput
         placeholder="Search here"
         placeholderTextColor={'grey'}

@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  StyleSheet,
   FlatList,
   TouchableOpacity,
   TextInput,
@@ -12,11 +11,9 @@ import {
   _verification,
 } from '../../utils/authFunction';
 import React, {useState} from 'react';
-import colors from '../../utils/colors';
+import styles from '../login/loginStyle';
 import LocalImages from '../../utils/localImages';
-import {vw, normalize, vh} from '../../utils/dimensions';
 import CustomButton from '../../components/button/customButton';
-import { useNavigation } from '@react-navigation/native';
 
 const Modal = () => {
   const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
@@ -24,7 +21,7 @@ const Modal = () => {
   const [selection, setSelection] = useState({start: 0, end: 0});
   const [confrimOtp, setConfirmOtp] = useState(null);
   const [count, setCount] = React.useState(false);
-  const navigation = useNavigation();
+  const [users, setUsers] = React.useState([]);
 
   const onPress = item => {
     if (item === -1 && selection !== null) {
@@ -69,23 +66,22 @@ const Modal = () => {
           console.log('error from the verification if catch', error);
         },
       );
-    }
-    else {
-      setCount(false);
+    } else {
       _verification(
         inputText,
         confrimOtp,
         user => {
-          console.log('users form the suucc', user);
-          navigation.navigate('routes');
+          setUsers([...users, user]);
+          console.log('user', user);
         },
         error => {
           console.log('errro from the verfication else catch', error);
-          // navigation.navigate('routes');
         },
       );
     }
   };
+
+  const collection = () => {};
 
   return (
     <View style={styles.modalMainView}>
@@ -127,82 +123,5 @@ const Modal = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  modalMainView: {
-    backgroundColor: colors.primaryWhite,
-    height: vh(600),
-    marginTop: 'auto',
-    padding: normalize(20),
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
-  },
-  text1View: {
-    height: normalize(72),
-    width: normalize(186),
-  },
-  text1: {
-    fontSize: normalize(26),
-    fontWeight: '500',
-  },
-  text2: {
-    color: '#989898',
-    marginTop: normalize(10),
-    fontSize: normalize(12),
-  },
-  textInputStyle: {
-    height: normalize(48),
-    width: normalize(320),
-    marginVertical: normalize(15),
-    fontSize: normalize(32),
-    textAlign: 'center',
-    letterSpacing: 4,
-  },
-  renderBtnView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 1,
-    height: vh(60),
-    width: vw(106),
-  },
-  flatlistStyle: {
-    paddingRight: normalize(12),
-    alignItems: 'flex-end',
-    height: vh(260),
-  },
-  keypadBtn: {
-    height: normalize(30),
-    width: normalize(30),
-  },
-  keypadBtnText: {
-    fontSize: 23,
-  },
-  btnStyle: {
-    backgroundColor: colors.primaryColor,
-    height: normalize(40),
-    width: normalize(335),
-    marginBottom: vh(10),
-    borderRadius: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  btnTextStyle: {
-    color: colors.primaryWhite,
-    fontWeight: '600',
-  },
-  bottomTextView: {
-    alignSelf: 'center',
-    height: vh(36),
-    width: vw(247),
-  },
-  bottomText: {
-    fontSize: normalize(12),
-    textAlign: 'left',
-  },
-  bottomHighlightText: {
-    fontSize: normalize(12),
-    fontWeight: 'bold',
-  },
-});
 
 export default Modal;
