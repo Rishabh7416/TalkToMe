@@ -1,13 +1,12 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import ModalView from './Modal';
 import React, {useState} from 'react';
 import loginStyle from './loginStyle';
-import LocalImages from '../../utils/localImages';
 import Modal from 'react-native-modal';
-import ModalView from './Modal';
+import LocalImages from '../../utils/localImages';
 import CustomButton from '../../components/button/customButton';
-import { useNavigation } from '@react-navigation/native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
+
 const LoginScreen = () => {
-  const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
   return (
     <View style={loginStyle.main}>
@@ -51,7 +50,6 @@ const LoginScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-
       <Modal
         animationOut={'slideOutDown'}
         animationIn={'slideInUp'}
@@ -60,7 +58,9 @@ const LoginScreen = () => {
           setModalVisible(false);
         }}
         isVisible={isModalVisible}>
-        <ModalView />
+        <ModalView 
+          callback = {() => setModalVisible(false)}
+        />
       </Modal>
     </View>
   );

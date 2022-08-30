@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import {chatListStyles} from './chatListStyles';
+import LocalImages from '../../utils/localImages';
 import Story from '../../components/stories/story';
 import {userData} from '../../constants/localData';
-import {LocalImages} from '../../utils/localImages';
 import {useNavigation} from '@react-navigation/native';
 import MainHeader from '../../components/headers/mainHeader';
 import CustomUserList from '../../components/userList/customUserList';
@@ -32,38 +31,28 @@ export default React.memo(function ChatList() {
     );  
   }
 
-  function listEmptyFunction(){
-    return(
-      // <CustomEmpty/>
-      <View>
-        <Text>Empty</Text>
-      </View>
-    )
-  }
-
   return (
     <React.Fragment>
       <MainHeader handleNavigation={() => handleNavigation()} headerText = {'Chat'}/>
       <CustomTextInput
         placeholder="Search here"
-        placeholderTextColor={'grey'}
         micIcon={LocalImages.micIcon}
+        placeholderTextColor={'grey'}
         searchIcon={LocalImages.searchIcon}
-        mainContainer={chatListStyles.textInputMainContainer}
-        textInputStyle={chatListStyles.textInputStyle}
         searchFunction={txt => search(txt)}
+        textInputStyle={chatListStyles.textInputStyle}
+        mainContainer={chatListStyles.textInputMainContainer}
       />
       <CustomUserList
+        bounces={false}
         userData={filteredData}
+        listHeaderComponent={listHeaderComponent}
         userNameStyle={chatListStyles.userNameStyle}
+        mainContainer={chatListStyles.mainContainer}
         detailsContainer={chatListStyles.detailsContainer}
         userMessageStyle={chatListStyles.userMessageStyle}
         userProfileImage={chatListStyles.userProfileImage}
-        mainContainer={chatListStyles.mainContainer}
-        listHeaderComponent={listHeaderComponent}
         contentContainerStyle={chatListStyles.flatlistContainerStyle}
-        bounces={false}
-        ListEmptyComponent={listEmptyFunction}
         navigationToChatScreen={() => navigation.navigate('chatscreen')}
       />
     </React.Fragment>

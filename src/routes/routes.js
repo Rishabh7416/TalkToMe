@@ -9,6 +9,8 @@ import ContactList from '../screens/contacts/contactList';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {routeStyles} from '../routes/routeStyles';
+import { vh, vw } from '../utils/dimensions';
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -18,7 +20,7 @@ export const StackNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="login" component={LoginScreen} />
-        <Stack.Screen name='routes' component={Routes}/>
+        <Stack.Screen name="routes" component={Routes} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -26,16 +28,14 @@ export const StackNavigation = () => {
 
 export default function Routes() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="screens" component={BottomTabRoutes} />
-        <Stack.Screen name="chatlistscreen" component={ChatList} />
-        <Stack.Screen name="chatscreen" component={ChatScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="screens" component={BottomTabRoutes} />
+      <Stack.Screen name="chatlistscreen" component={ChatList} />
+      <Stack.Screen name="chatscreen" component={ChatScreen} />
+    </Stack.Navigator>
   );
 }
 
