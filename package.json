@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "@faker-js/faker": "^7.4.0",
-    "@react-native-firebase/app": "^15.3.0",
+    "@react-native-firebase/app": "^15.4.0",
     "@react-native-firebase/auth": "^15.3.0",
+    "@react-native-firebase/firestore": "^15.4.0",
     "@react-navigation/bottom-tabs": "^6.3.3",
     "@react-navigation/material-top-tabs": "^6.2.3",
     "@react-navigation/native": "^6.0.12",

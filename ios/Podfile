@@ -26,8 +26,7 @@ target 'TalkTome' do
     # Pods for testing
   end
 
-
-  pod 'FirebaseCoreExtension', :modular_headers => true
+  
   
   # Enables Flipper.
   #
