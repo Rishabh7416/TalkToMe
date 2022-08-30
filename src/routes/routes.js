@@ -38,7 +38,8 @@ export default function Routes() {
             },
             tabBarIcon: ({focused}) => (
               <Image
-                // source={require('../assets/images/contactsIcon.png')}
+                source={require( 
+                  '../assets/images/contactIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -53,7 +54,7 @@ export default function Routes() {
             },
             tabBarIcon: ({focused}) => (
               <Image
-                // source={require('../assets/images/contactsIcon.png')}
+                source={require('../assets/images/contactIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -68,7 +69,7 @@ export default function Routes() {
             },
             tabBarIcon: ({focused}) => (
               <Image
-                // source={require('../assets/images/contactsIcon.png')}
+                source={require('../assets/images/contactIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),
@@ -83,7 +84,7 @@ export default function Routes() {
             },
             tabBarIcon: ({focused}) => (
               <Image
-                // source={require('../assets/images/contactsIcon.png')}
+                source={require('../assets/images/contactIcon.png')}
                 style={{height: 20, width: 20}}
               />
             ),

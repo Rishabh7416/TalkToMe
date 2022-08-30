@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import {
   signInWithPhoneNumberOtp,
@@ -15,8 +16,6 @@ import React, {useState} from 'react';
 import colors from '../../utils/colors';
 import LocalImages from '../../utils/localImages';
 import {vw, normalize, vh} from '../../utils/dimensions';
-import {OtpVerification} from '../../utils/authFunction';
-import {PhoneNumberSignIn} from '../../utils/authFunction';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../../components/button/customButton';
 import { strings } from '../../constants/string';
@@ -26,6 +25,7 @@ const Modal = props => {
   const [inputText, setInputText] = useState('');
   const [selection, setSelection] = useState({start: 0, end: 0});
   const [confrimOtp, setConfirmOtp] = useState(null);
+  const [loaderState,setLoaderState]=useState(false);
   const [count,setCount]=useState(false)
 
   const onPress = item => {
@@ -76,13 +76,17 @@ const Modal = props => {
   };
 
   const verification = () => {
-    if (count == false) {
+    
+    if (count == false&&inputText.length>10) {
+      setLoaderState(true)
       signInWithPhoneNumberOtp(
         inputText,
         otpResponse => {
           setCount(true);
           setInputText('');
+          setSelection({start:0,end:0})
           setConfirmOtp(otpResponse);
+          setLoaderState(false)
         },
         error => {
           console.log('error from the verification if catch', error);
@@ -90,13 +94,15 @@ const Modal = props => {
       );
     }
     else {
-      setCount(false);
       _verification(
         inputText,
         confrimOtp,
         user => {
+          setCount(false);
           console.log('users form the suucc', user);
-          // navigation.navigate('routes');
+          // console.log(props.callBack)
+         props.callBack(user)
+          navigation.navigate('routes');
         },
         error => {
           console.log('errro from the verfication else catch', error);
@@ -108,10 +114,11 @@ const Modal = props => {
 
   return (
     <View style={styles.modalMainView}>
+      {loaderState&&<View style={styles.loaderViewStyle}><ActivityIndicator color={colors.primaryColor} size={'large'}/></View>}
       <View style={styles.text1View}>
-        <Text style={styles.text1}>{count?strings.EnterText:strings.EnterOtp}</Text>
+        <Text style={styles.text1}>{!count?strings.EnterMobile:strings.EnterOtp}</Text>
       </View>
-      <Text style={styles.text2}>{count?strings.WeSendConfirmCode:strings.WeSendToNumber+``}</Text>
+      <Text style={styles.text2}>{!count?strings.WeSendConfirmCode:strings.WeSendToNumber}</Text>
       <TextInput
         value={inputText}
         style={styles.textInputStyle}
@@ -155,6 +162,11 @@ const styles = StyleSheet.create({
     padding: normalize(20),
     borderTopEndRadius: 20,
     borderTopStartRadius: 20,
+  },
+  loaderViewStyle:{
+    zIndex: 1,
+    height:vh(600),
+    justifyContent:'center',
   },
   text1View: {
     height: normalize(72),
