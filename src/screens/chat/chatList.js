@@ -3,13 +3,16 @@ import {chatListStyles} from './chatListStyles';
 import LocalImages from '../../utils/localImages';
 import Story from '../../components/stories/story';
 import {userData} from '../../constants/localData';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 import MainHeader from '../../components/headers/mainHeader';
 import CustomUserList from '../../components/userList/customUserList';
 import CustomTextInput from '../../components/textInput/customTextInput';
 
 export default React.memo(function ChatList() {
   const navigation = useNavigation();
+  const route = useRoute();
+  console.log('routes', route.params);
   const [filteredData, setFilteredData] = React.useState(userData);
 
   function handleNavigation() {
@@ -28,12 +31,35 @@ export default React.memo(function ChatList() {
       <React.Fragment>
         <Story horizontal={true} />
       </React.Fragment>
-    );  
+    );
   }
+
+  React.useEffect(() => {
+    const subscriber = firestore()
+      .collection('Users')
+      .doc('userDoc')
+      .collection('Messages')
+      .doc('userMessage')
+      .set({
+        name: 'Rishabh',
+        profile: 'Dev',
+      })
+      .then(response => {
+        console.log('collection created response: ');
+      })
+      .catch(error => {
+        console.log('collection error');
+      });
+
+    return () => subscriber;
+  }, []);
 
   return (
     <React.Fragment>
-      <MainHeader handleNavigation={() => handleNavigation()} headerText = {'Chat'}/>
+      <MainHeader
+        handleNavigation={() => handleNavigation()}
+        headerText={'Chat'}
+      />
       <CustomTextInput
         placeholder="Search here"
         micIcon={LocalImages.micIcon}

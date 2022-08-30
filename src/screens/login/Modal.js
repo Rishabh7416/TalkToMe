@@ -31,9 +31,9 @@ function reducer(state, action) {
     case 'SELECTIONS':
       return {...state, switchFunction: action.switchFunctionPayload};
     case 'INPUT_TEXT':
-      return {...state, inputText: action.inputPayload};
+      return {...state};
     case 'CONFIRM_OTP':
-      return {...state, confrimOtp: action.otpResponsePayload};
+      return {...state};
     case 'SWITCH_FUNCTION':
       return {...state};
     default:
@@ -47,6 +47,9 @@ const Modal = ({callback}) => {
   const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
   const [inputText, setInputText] = useState('');
   const [selection, setSelection] = useState({start: 0, end: 0});
+  const [confrimOtp, setConfirmOtp] = useState(null);
+  const [count, setCount] = React.useState(false);
+  const [users, setUsers] = React.useState([]);
   const navigation = useNavigation();
 
   const onPress = item => {
@@ -84,9 +87,9 @@ const Modal = ({callback}) => {
       signInWithPhoneNumberOtp(
         inputText,
         otpResponse => {
-          dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: true});
-          dispatch({type: 'INPUT_TEXT', inputPayload: ''});
-          dispatch({type: 'CONFIRM_OTP', otpResponsePayload: otpResponse});
+          setCount(true);
+          setInputText('');
+          setConfirmOtp(otpResponse);
         },
         error => {
           console.log('error from the verification if catch', error);
@@ -108,10 +111,6 @@ const Modal = ({callback}) => {
         },
       );
     }
-  };
-
-  const collection = () => {
-    
   };
 
   return (
