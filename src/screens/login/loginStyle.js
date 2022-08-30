@@ -14,9 +14,10 @@ export default styles = StyleSheet.create({
     top:vh(450),
   },
   bigTextView:{
-    height:normalize(110),
-    width:normalize(306),
-    paddingHorizontal:vw(10),
+    height:normalize(120),
+    width:normalize(250),
+    justifyContent:'center',
+    paddingHorizontal:normalize(10),
   },
 
   bigText: {
@@ -56,7 +57,8 @@ export default styles = StyleSheet.create({
   AreadyLoginViewStyle: {
     alignSelf: 'center',
     flexDirection: 'row',
-    marginTop:vh(5),
+    marginTop:'auto',
+    bottom:vh(2),
   },
   SmileKidImageStyle: {
     position: 'absolute',

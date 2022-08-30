@@ -6,6 +6,8 @@ install! 'cocoapods', :deterministic_uuids => false
 
 target 'TalkTome' do
   config = use_native_modules!
+  use_frameworks! :linkage => :static
+
 
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -24,21 +26,14 @@ target 'TalkTome' do
     # Pods for testing
   end
 
-  pod 'Firebase', :modular_headers => true
-  pod 'FirebaseCoreInternal', :modular_headers => true
-  pod 'GoogleUtilities', :modular_headers => true
-  pod 'FirebaseCore', :modular_headers => true
-  pod 'FirebaseMessaging', :modular_headers => true
-  pod 'FirebaseStorageInternal', :modular_headers => true
-  pod 'FirebaseAppCheckInterop', :modular_headers => true
-  pod 'FirebaseAuthInterop', :modular_headers => true
+
   pod 'FirebaseCoreExtension', :modular_headers => true
   
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  # use_flipper!()
 
   post_install do |installer|
     react_native_post_install(installer)

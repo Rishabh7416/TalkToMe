@@ -1,20 +1,28 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import loginStyle from './loginStyle';
 import LocalImages from '../../utils/localImages';
 import Modal from 'react-native-modal';
 import ModalView from './Modal';
 import CustomButton from '../../components/button/customButton';
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
 const LoginScreen = () => {
-  const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [otpModalVisible,setOtpModalVisible] =useState(false);
-  const [count,setCount]=useState(false);
-const modalCallBack=()=>{
-  console.log('my modal call back funtuon');
-}
-  
 
+  const modalCallBack = (user) => {
+    console.log('my modal call back funtuon with user uid',user.user._user.uid);
+
+    setModalVisible(false)
+let uid = user.user._user.uid
+   firestore().collection('Users').doc(user.user._user.uid)
+   
+  //  return res;
+
+
+  };
+
+  const navigation = useNavigation();
 
   return (
     <View style={loginStyle.main}>
@@ -40,10 +48,11 @@ const modalCallBack=()=>{
           private texting
         </Text>
         <CustomButton
-          onPress={() => console.log('press')}
+          onPress={() => navigation.navigate('routes')}
           ViewStyle={loginStyle.btnStyle}
           text={'Join Now'}
         />
+          </View>
         <View style={loginStyle.AreadyLoginViewStyle}>
           <Text style={loginStyle.loginText1}>
             {' '}
@@ -57,21 +66,18 @@ const modalCallBack=()=>{
             <Text style={loginStyle.loginText2}>{'Login'}</Text>
           </TouchableOpacity>
         </View>
-      </View>
 
-      {/* <Modal
+      <Modal
         animationOut={'slideOutDown'}
         animationIn={'slideInUp'}
         style={{marginBottom: 0, marginHorizontal: 0}}
         onBackdropPress={() => {
           setModalVisible(false);
         }}
-        
         isVisible={isModalVisible}>
-       <ModalView/>
-      </Modal> */}
 
-    
+        <ModalView callBack={modalCallBack} />
+      </Modal>
     </View>
   );
 };
