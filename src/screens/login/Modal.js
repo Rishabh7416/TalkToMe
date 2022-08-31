@@ -19,6 +19,7 @@ import {vw, normalize, vh} from '../../utils/dimensions';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../../components/button/customButton';
 import {strings} from '../../constants/string';
+
 const Modal = props => {
   const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
   const navigation = useNavigation();

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import {SafeAreaView} from 'react-native';
-import {Store} from './src/redux/store/sagaStore';
+import {Store} from './src/redux/store/store';
 import {StackNavigation} from './src/routes/routes';
 
 const App = () => {

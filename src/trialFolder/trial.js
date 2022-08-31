@@ -1,30 +1,19 @@
-import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import { View, Text } from 'react-native'
+import React from 'react'
+import firestore from '@react-native-firebase/firestore'
 
-export default function Trial() {
-  const data = [1, 2, 3, 4, 5, 7, 8, 9, 0];
-  const [number, setNumber] = React.useState([]);
 
-  const input = element => {
-    setNumber([...number, element]);
-  };
+export default function Trail() {
+
+  const onSend = () =>{
+    firestore().collection('Us').doc('uid').set({
+      name: 'Rishabh'
+    })
+  }
 
   return (
     <View>
-      {data.map((element, index) => {
-        return (
-          <TouchableOpacity onPress={() => input(element)} key={index}>
-            <Text>{element}</Text>
-          </TouchableOpacity>
-        );
-      })}
-      {number.map(element => {
-        return (
-          <View>
-            <Text>{element}</Text>
-          </View>
-        );
-      })}
+      <Text onPress={() => onSend()}>Trail</Text>
     </View>
-  );
+  )
 }

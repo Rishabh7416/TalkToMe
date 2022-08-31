@@ -16,12 +16,9 @@ const LoginScreen = () => {
     setModalVisible(false)
 let uid = user.user._user.uid
   firestore().collection('Users1').doc(uid).set({
-    name:'test'
-  }).then((res)=>{
-    console.log(res);
-
+    name:'krishna',
+    uid,
   })
-  //  return res;
 
 
   };
