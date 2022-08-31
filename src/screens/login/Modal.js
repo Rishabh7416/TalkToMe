@@ -13,15 +13,47 @@ import {
 import React, {useState} from 'react';
 import styles from '../login/loginStyle';
 import LocalImages from '../../utils/localImages';
+import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../../components/button/customButton';
+import { addUsers, addUid } from '../../redux/reducers/reducers';
+import { useDispatch, useSelector } from 'react-redux';
 
-const Modal = () => {
+const initialState = {
+  users: [],
+  inputText: '',
+  confrimOtp: null,
+  switchFunction: false,
+  selection: {start: 0, end: 0},
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'USERS':
+      return {...state, users: action.usersPayload};
+    case 'SELECTIONS':
+      return {...state, switchFunction: action.switchFunctionPayload};
+    case 'INPUT_TEXT':
+      return {...state};
+    case 'CONFIRM_OTP':
+      return {...state};
+    case 'SWITCH_FUNCTION':
+      return {...state};
+    default:
+      return null;
+  }
+}
+
+const Modal = ({callback}) => {
+  // const [state, dispatch] = React.useReducer(reducer, initialState);
   const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
   const [inputText, setInputText] = useState('');
   const [selection, setSelection] = useState({start: 0, end: 0});
   const [confrimOtp, setConfirmOtp] = useState(null);
   const [count, setCount] = React.useState(false);
-  const [users, setUsers] = React.useState([]);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const users = useSelector(Store => Store.slice_reducer)
+  console.log('redux users', users);
 
   const onPress = item => {
     if (item === -1 && selection !== null) {
@@ -71,17 +103,17 @@ const Modal = () => {
         inputText,
         confrimOtp,
         user => {
-          setUsers([...users, user]);
-          console.log('user', user);
+          dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: false});
+          dispatch(addUsers(user.user._user))
+          callback(true);
+          navigation.navigate('routes');
         },
         error => {
-          console.log('errro from the verfication else catch', error);
+          console.log('verification function catch', error);
         },
       );
     }
   };
-
-  const collection = () => {};
 
   return (
     <View style={styles.modalMainView}>
