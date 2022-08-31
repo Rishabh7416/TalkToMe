@@ -13,8 +13,10 @@ import {
 import React, {useState} from 'react';
 import styles from '../login/loginStyle';
 import LocalImages from '../../utils/localImages';
-import CustomButton from '../../components/button/customButton';
 import {useNavigation} from '@react-navigation/native';
+import CustomButton from '../../components/button/customButton';
+import { addUsers, addUid } from '../../redux/reducers/reducers';
+import { useDispatch, useSelector } from 'react-redux';
 
 const initialState = {
   users: [],
@@ -42,15 +44,16 @@ function reducer(state, action) {
 }
 
 const Modal = ({callback}) => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-  console.log('state', state);
+  // const [state, dispatch] = React.useReducer(reducer, initialState);
   const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
   const [inputText, setInputText] = useState('');
   const [selection, setSelection] = useState({start: 0, end: 0});
   const [confrimOtp, setConfirmOtp] = useState(null);
   const [count, setCount] = React.useState(false);
-  const [users, setUsers] = React.useState([]);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const users = useSelector(Store => Store.slice_reducer)
+  console.log('redux users', users);
 
   const onPress = item => {
     if (item === -1 && selection !== null) {
@@ -101,10 +104,9 @@ const Modal = ({callback}) => {
         confrimOtp,
         user => {
           dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: false});
-          dispatch({type: 'USERS', usersPayload: [...users, user.user._user]});
+          dispatch(addUsers(user.user._user))
           callback(true);
           navigation.navigate('routes');
-          console.log('user', user);
         },
         error => {
           console.log('verification function catch', error);

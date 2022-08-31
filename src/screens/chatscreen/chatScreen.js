@@ -7,9 +7,12 @@ import {
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import colors from '../../utils/colors';
+import { useRoute } from '@react-navigation/native';
 
 export default function  ChatScreen() {
   const [messages, setMessages] = React.useState([]);
+  const route = useRoute();
+  console.log('routes', route.params);
 
   React.useEffect(() => {
     setMessages([

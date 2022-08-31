@@ -1,37 +1,30 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import {chatListStyles} from './chatListStyles';
 import LocalImages from '../../utils/localImages';
 import Story from '../../components/stories/story';
-import {userData} from '../../constants/localData';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import MainHeader from '../../components/headers/mainHeader';
 import CustomUserList from '../../components/userList/customUserList';
 import CustomTextInput from '../../components/textInput/customTextInput';
+import { userData } from '../../constants/localData';
 
 export default React.memo(function ChatList() {
   const navigation = useNavigation();
-  const route = useRoute();
-  console.log('routes', route.params);
-  const [filteredData, setFilteredData] = React.useState(userData);
+  const users = useSelector(Store => Store.slice_reducer);
+  console.log('chatLists', users);
 
   function handleNavigation() {
     navigation.goBack('Contacts');
   }
 
-  function search(txt) {
-    let filtering = userData.filter(element => {
-      return element.message.includes(txt);
-    });
-    setFilteredData(filtering);
+  function listHeaderComponent() {
+    return <Story horizontal={true} />;
   }
 
-  function listHeaderComponent() {
-    return (
-      <React.Fragment>
-        <Story horizontal={true} />
-      </React.Fragment>
-    );
+  function createRoom() {
+    navigation.navigate('chatscreen', {name: users});
   }
 
   React.useEffect(() => {
@@ -39,7 +32,7 @@ export default React.memo(function ChatList() {
       .collection('Users')
       .doc('userDoc')
       .collection('Messages')
-      .doc('userMessage')
+      .doc('userMessage-1')
       .set({
         name: 'Rishabh',
         profile: 'Dev',
@@ -65,13 +58,14 @@ export default React.memo(function ChatList() {
         micIcon={LocalImages.micIcon}
         placeholderTextColor={'grey'}
         searchIcon={LocalImages.searchIcon}
-        searchFunction={txt => search(txt)}
+        // searchFunction={txt => search(txt)}
         textInputStyle={chatListStyles.textInputStyle}
         mainContainer={chatListStyles.textInputMainContainer}
       />
       <CustomUserList
         bounces={false}
-        userData={filteredData}
+        // userData={users.users}
+        userData={userData}
         listHeaderComponent={listHeaderComponent}
         userNameStyle={chatListStyles.userNameStyle}
         mainContainer={chatListStyles.mainContainer}
@@ -79,8 +73,18 @@ export default React.memo(function ChatList() {
         userMessageStyle={chatListStyles.userMessageStyle}
         userProfileImage={chatListStyles.userProfileImage}
         contentContainerStyle={chatListStyles.flatlistContainerStyle}
-        navigationToChatScreen={() => navigation.navigate('chatscreen')}
+        createRoomAndNavigation={() => createRoom()}
       />
     </React.Fragment>
   );
 });
+
+// const route = useRoute();
+// const [filteredData, setFilteredData] = React.useState(userData);
+// const [filteredData, setFilteredData] = React.useState(users);
+// function search(txt) {
+//   let filtering = userData.filter(element => {
+//     return element.message.includes(txt);
+//   });
+//   setFilteredData(filtering);
+// }
