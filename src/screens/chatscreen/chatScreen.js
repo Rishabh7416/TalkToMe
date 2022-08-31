@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   containerStyle: {
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
     borderRadius: 100 / 2,
     height: 55,
     justifyContent: 'center',
