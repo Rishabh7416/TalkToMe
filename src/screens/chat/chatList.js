@@ -3,12 +3,13 @@ import {useSelector} from 'react-redux';
 import {chatListStyles} from './chatListStyles';
 import LocalImages from '../../utils/localImages';
 import Story from '../../components/stories/story';
+import { userData } from '../../constants/localData';
+import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import MainHeader from '../../components/headers/mainHeader';
 import CustomUserList from '../../components/userList/customUserList';
 import CustomTextInput from '../../components/textInput/customTextInput';
-import { userData } from '../../constants/localData';
+import { chatStructure } from '../../utils/fireStore';
 
 export default React.memo(function ChatList() {
   const navigation = useNavigation();
@@ -28,23 +29,7 @@ export default React.memo(function ChatList() {
   }
 
   React.useEffect(() => {
-    const subscriber = firestore()
-      .collection('Users')
-      .doc('userDoc')
-      .collection('Messages')
-      .doc('userMessage-1')
-      .set({
-        name: 'Rishabh',
-        profile: 'Dev',
-      })
-      .then(response => {
-        console.log('collection created response: ');
-      })
-      .catch(error => {
-        console.log('collection error');
-      });
-
-    return () => subscriber;
+    
   }, []);
 
   return (

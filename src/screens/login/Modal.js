@@ -17,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../../components/button/customButton';
 import { addUsers, addUid } from '../../redux/reducers/reducers';
 import { useDispatch, useSelector } from 'react-redux';
+import { chatStructure } from '../../utils/fireStore';
 
 const initialState = {
   users: [],
@@ -106,6 +107,7 @@ const Modal = ({callback}) => {
           dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: false});
           dispatch(addUsers(user.user._user))
           callback(true);
+          chatStructure(user.user._user.uid);
           navigation.navigate('routes');
         },
         error => {
