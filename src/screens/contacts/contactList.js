@@ -1,11 +1,9 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect} from 'react';
-import {createRoom, getData} from '../../utils/fireStore';
 import {FlatList} from 'react-native-gesture-handler';
-import {userData} from '../../constants/localData';
 import {chatListStyles} from '../chat/chatListStyles';
 import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 
 export default function ContactList() {
   const [userList, setUserList] = React.useState([]);
@@ -36,7 +34,10 @@ export default function ContactList() {
           return (
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('chatscreen', {userName: item.name, uid: item.uid})
+                navigation.navigate('chatscreen', {
+                  userName: item.name,
+                  uid: item.uid,
+                })
               }
               style={{
                 flexDirection: 'row',

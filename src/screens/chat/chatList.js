@@ -4,9 +4,9 @@ import {chatListStyles} from './chatListStyles';
 import LocalImages from '../../utils/localImages';
 import Story from '../../components/stories/story';
 import {userData} from '../../constants/localData';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import MainHeader from '../../components/headers/mainHeader';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import CustomUserList from '../../components/userList/customUserList';
 import CustomTextInput from '../../components/textInput/customTextInput';
 

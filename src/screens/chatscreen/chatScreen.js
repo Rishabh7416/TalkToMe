@@ -20,6 +20,7 @@ export default function ChatScreen() {
     users.users.uid > route.params.uid
       ? `${users.users.uid}-${route.params.uid}`
       : `${route.params.uid}-${users.users.uid}`;
+  console.log('roomid', roomid);    
 
   React.useLayoutEffect(() => {
     console.log('users', users);

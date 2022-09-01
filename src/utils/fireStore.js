@@ -7,7 +7,7 @@ export const chatStructure = uid => {
   });
 };
 
-export const getData = (callbackFunction) => {
+export const getData = callbackFunction => {
   firestore()
     .collection('Users')
     .get()
@@ -15,7 +15,7 @@ export const getData = (callbackFunction) => {
       const responseResult = response._docs.map(element => {
         return element.data();
       });
-      callbackFunction(responseResult)
+      callbackFunction(responseResult);
     })
     .catch(() => {
       console.log('error');
