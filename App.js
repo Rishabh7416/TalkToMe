@@ -1,5 +1,5 @@
 import React from 'react';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native';
 import {StackNavigation} from './src/routes/routes';
 import {persistor, Store} from './src/redux/store/store';

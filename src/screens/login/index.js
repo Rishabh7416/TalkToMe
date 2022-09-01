@@ -58,9 +58,7 @@ const LoginScreen = () => {
           setModalVisible(false);
         }}
         isVisible={isModalVisible}>
-        <ModalView 
-          callback = {() => setModalVisible(false)}
-        />
+        <ModalView callback={() => setModalVisible(false)} />
       </Modal>
     </View>
   );
