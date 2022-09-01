@@ -7,31 +7,43 @@ import {
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import colors from '../../utils/colors';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import {useSelector} from 'react-redux';
 
-export default function  ChatScreen() {
-  const [messages, setMessages] = React.useState([]);
+export default function ChatScreen() {
   const route = useRoute();
-  console.log('routes', route.params);
+  const [messages, setMessages] = React.useState([]);
+  const users = useSelector(Store => Store.slice_reducer);
 
-  React.useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]);
+  const roomid =
+    users.users.uid > route.params.uid
+      ? `${users.users.uid}-${route.params.uid}`
+      : `${route.params.uid}-${users.users.uid}`;
+
+  React.useLayoutEffect(() => {
+    console.log('users', users);
   }, []);
 
   const onSend = React.useCallback((messages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages),
+    const msg = messages[0];
+    const myMesssage = {
+      ...msg,
+      sentBy: users.users.uid,
+      sentTo: route.params.uid,
+      deletedBy: '',
+      sent: true,
+      received: false,
+      deletedForEveryOne: false,
+      createdAt: new Date().getTime(),
+    };
+    firestore()
+      .collection('ChatRoom')
+      .doc(roomid)
+      .collection('Messages')
+      .doc(myMesssage._id)
+      .set({...myMesssage});
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages),
     );
   }, []);
 
@@ -57,7 +69,6 @@ export default function  ChatScreen() {
 
   return (
     <React.Fragment>
-      {/* <MainHeader /> */}
       <GiftedChat
         messages={messages}
         onSend={messages => onSend(messages)}

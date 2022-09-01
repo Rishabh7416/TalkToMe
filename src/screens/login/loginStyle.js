@@ -45,16 +45,13 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  loginText1: {
-    color: '#C2C2C2',
-    fontSize: 15,
-   
-  },
   loginText2: {
     color: colors.primaryWhite,
     fontWeight: 'bold',
   },
   AreadyLoginViewStyle: {
+    color: '#C2C2C2',
+    fontSize: 15,
     alignSelf: 'center',
     flexDirection: 'row',
     marginTop:'auto',

@@ -11,6 +11,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {routeStyles} from '../routes/routeStyles';
 import {vh, vw} from '../utils/dimensions';
+import SignUpScreen from '../screens/signUp';
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -20,6 +21,7 @@ export const StackNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="login" component={LoginScreen} />
+        <Stack.Screen name="signup" component={SignUpScreen} />
         <Stack.Screen name="routes" component={Routes} />
       </Stack.Navigator>
     </NavigationContainer>

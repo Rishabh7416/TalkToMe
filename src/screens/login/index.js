@@ -10,9 +10,8 @@ import {useNavigation} from '@react-navigation/native';
 const LoginScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const modalCallBack = (user) => {
+  const modalCallBack = () => {
     console.log('my modal call back funtuon with user uid',user.user._user.uid);
-
     setModalVisible(false)
 // let uid = user.user._user.uid
 //   firestore().collection('Users1').doc(uid).set({
@@ -49,13 +48,15 @@ const LoginScreen = () => {
           private texting
         </Text>
         <CustomButton
-          onPress={() => navigation.navigate('routes')}
+          onPress={() => navigation.navigate('signup')}
           ViewStyle={loginStyle.btnStyle}
           text={'Join Now'}
         />
           </View>
-        <View style={loginStyle.AreadyLoginViewStyle}>
-          <Text style={loginStyle.loginText1}>
+
+
+     
+          <Text style={loginStyle.AreadyLoginViewStyle}>
             {' '}
             {'Already have an account? '}
           </Text>
@@ -66,7 +67,6 @@ const LoginScreen = () => {
             }}>
             <Text style={loginStyle.loginText2}>{'Login'}</Text>
           </TouchableOpacity>
-        </View>
 
       <Modal
         animationOut={'slideOutDown'}
@@ -76,8 +76,7 @@ const LoginScreen = () => {
           setModalVisible(false);
         }}
         isVisible={isModalVisible}>
-
-        <ModalView callBack={()=>setModalVisible(false)} />
+        <ModalView callBack={() =>setModalVisible(false)} />
       </Modal>
     </View>
   );
