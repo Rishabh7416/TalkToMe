@@ -59,14 +59,15 @@ const LoginScreen = () => {
           <Text style={loginStyle.AreadyLoginViewStyle}>
             {' '}
             {'Already have an account? '}
-          </Text>
-          <TouchableOpacity
+            <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
               setModalVisible(!isModalVisible);
             }}>
             <Text style={loginStyle.loginText2}>{'Login'}</Text>
           </TouchableOpacity>
+          </Text>
+         
 
       <Modal
         animationOut={'slideOutDown'}

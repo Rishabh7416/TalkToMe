@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native'
 import colors from '../../utils/colors'
-import { vh,normalize,vw,SCREEN_HEIGHT,SCREEN_WIDTH } from '../../utils/dimensions'
+import { vh,normalize,vw,SCREEN_HEIGHT,SCREEN_WIDTH, DESIGN_HEIGHT, DESIGN_WIDTH } from '../../utils/dimensions'
 
 const signUpStyles = StyleSheet.create({
     main:{
@@ -8,10 +8,10 @@ const signUpStyles = StyleSheet.create({
         backgroundColor:colors.primaryColor,
     },
     secondViewStyle:{
-        height:vh(SCREEN_HEIGHT),
-        width:vh(SCREEN_WIDTH),
+        height: '100%',
+        width: '100%',
         borderTopLeftRadius:normalize(200),
-        borderBottomRightRadius:normalize(600),
+        borderBottomRightRadius:normalize(200),
         paddingTop:vh(70),
         paddingHorizontal:normalize(40),
         backgroundColor:colors.primaryWhite,
