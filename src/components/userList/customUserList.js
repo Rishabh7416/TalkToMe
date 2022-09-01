@@ -14,6 +14,7 @@ export default function CustomUserList({
   createRoomAndNavigation,
 }) {
   function renderItem({item}) {
+    // console.log('item', item);
     return (
       <TouchableOpacity
         style={detailsContainer}
@@ -22,7 +23,7 @@ export default function CustomUserList({
           <Image source={{uri: item.profilePic}} style={userProfileImage} />
         </TouchableOpacity>
         <TouchableOpacity onPress={createRoomAndNavigation}>
-          <Text style={userNameStyle}>{item.uid}</Text>
+          {/* <Text style={userNameStyle}>{item.}</Text> */}
           <Text style={userMessageStyle}>{item.message}</Text>
         </TouchableOpacity>
       </TouchableOpacity>

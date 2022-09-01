@@ -17,7 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../../components/button/customButton';
 import { addUsers, addUid } from '../../redux/reducers/reducers';
 import { useDispatch, useSelector } from 'react-redux';
-import { chatStructure } from '../../utils/fireStore';
+import { chatStructure, createRoom } from '../../utils/fireStore';
 
 const initialState = {
   users: [],
@@ -54,7 +54,6 @@ const Modal = ({callback}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const users = useSelector(Store => Store.slice_reducer)
-  console.log('redux users', users);
 
   const onPress = item => {
     if (item === -1 && selection !== null) {
@@ -106,7 +105,7 @@ const Modal = ({callback}) => {
         user => {
           dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: false});
           dispatch(addUsers(user.user._user))
-          callback(true);
+          callback();
           chatStructure(user.user._user.uid);
           navigation.navigate('routes');
         },
@@ -146,12 +145,12 @@ const Modal = ({callback}) => {
       <View style={styles.bottomTextView}>
         <Text style={styles.bottomText}>
           By Creating passcode you agree with our{' '}
-          <Text style={styles.bottomHighlightText}>Terms & Conditions</Text> and{' '}
+          <Text style={styles.bottomHighlightText}>Terms & Conditions</Text>
           <Text
             onPress={() => verification()}
             style={styles.bottomHighlightText}>
             Privacy Policy
-          </Text>{' '}
+          </Text>
         </Text>
       </View>
     </View>

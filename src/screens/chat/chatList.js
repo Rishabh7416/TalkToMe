@@ -3,18 +3,19 @@ import {useSelector} from 'react-redux';
 import {chatListStyles} from './chatListStyles';
 import LocalImages from '../../utils/localImages';
 import Story from '../../components/stories/story';
-import { userData } from '../../constants/localData';
-import {useNavigation} from '@react-navigation/native';
+import {userData} from '../../constants/localData';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import MainHeader from '../../components/headers/mainHeader';
 import CustomUserList from '../../components/userList/customUserList';
 import CustomTextInput from '../../components/textInput/customTextInput';
-import { chatStructure } from '../../utils/fireStore';
 
 export default React.memo(function ChatList() {
   const navigation = useNavigation();
   const users = useSelector(Store => Store.slice_reducer);
-  console.log('chatLists', users);
+  const [userlist, setUserList] = React.useState([]);
+  console.log('userlist', userlist);
+  const route = useRoute();
 
   function handleNavigation() {
     navigation.goBack('Contacts');
@@ -25,12 +26,21 @@ export default React.memo(function ChatList() {
   }
 
   function createRoom() {
-    navigation.navigate('chatscreen', {name: users});
+    // firestore()
+    //   .collection('Users')
+    //   .get()
+    //   .then(response => {
+    //     const resResult = response.docs.map(element => element.data());
+    //     // callback(resResult);
+    //     setUserList(resResult);
+    //   })
+    //   .catch(() => {
+    //     console.log('error');
+    //   });
+    navigation.navigate('chatscreen');
   }
 
-  React.useEffect(() => {
-    
-  }, []);
+  React.useEffect(() => {}, []);
 
   return (
     <React.Fragment>
@@ -49,7 +59,6 @@ export default React.memo(function ChatList() {
       />
       <CustomUserList
         bounces={false}
-        // userData={users.users}
         userData={userData}
         listHeaderComponent={listHeaderComponent}
         userNameStyle={chatListStyles.userNameStyle}

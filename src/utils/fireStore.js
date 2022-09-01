@@ -6,3 +6,18 @@ export const chatStructure = uid => {
     uid: uid,
   });
 };
+
+export const getData = (callbackFunction) => {
+  firestore()
+    .collection('Users')
+    .get()
+    .then(response => {
+      const responseResult = response._docs.map(element => {
+        return element.data();
+      });
+      callbackFunction(responseResult)
+    })
+    .catch(() => {
+      console.log('error');
+    });
+};
