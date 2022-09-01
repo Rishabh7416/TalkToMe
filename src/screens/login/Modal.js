@@ -18,11 +18,15 @@ import LocalImages from '../../utils/localImages';
 import {vw, normalize, vh} from '../../utils/dimensions';
 import {useNavigation} from '@react-navigation/native';
 import CustomButton from '../../components/button/customButton';
-import {strings} from '../../constants/string';
+import { strings } from '../../constants/string';
+import { addUsers, addUid } from '../../redux/reducers/reducers';
+import { useDispatch, useSelector } from 'react-redux';
+import { chatStructure } from '../../utils/fireStore';
 
-const Modal = props => {
+const Modal = ({callBack}) => {
   const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [inputText, setInputText] = useState('');
   const [selection, setSelection] = useState({start: 0, end: 0});
   const [confrimOtp, setConfirmOtp] = useState(null);
@@ -96,10 +100,10 @@ const Modal = props => {
         inputText,
         confrimOtp,
         user => {
-          setCount(false);
-          console.log('users form the suucc', user);
-          // console.log(props.callBack)
-          props.callBack(user);
+          dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: false});
+          dispatch(addUsers(user.user._user))
+          callBack()
+          chatStructure(user.user._user.uid);
           navigation.navigate('routes');
         },
         error => {

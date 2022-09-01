@@ -14,11 +14,11 @@ const LoginScreen = () => {
     console.log('my modal call back funtuon with user uid',user.user._user.uid);
 
     setModalVisible(false)
-let uid = user.user._user.uid
-  firestore().collection('Users1').doc(uid).set({
-    name:'krishna',
-    uid,
-  })
+// let uid = user.user._user.uid
+//   firestore().collection('Users1').doc(uid).set({
+//     name:'krishna',
+//     uid,
+//   })
 
 
   };
@@ -77,7 +77,7 @@ let uid = user.user._user.uid
         }}
         isVisible={isModalVisible}>
 
-        <ModalView callBack={modalCallBack} />
+        <ModalView callBack={()=>setModalVisible(false)} />
       </Modal>
     </View>
   );
