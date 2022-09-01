@@ -1,13 +1,29 @@
-import ModalView from './Modal';
-import React, {useState} from 'react';
-import loginStyle from './loginStyle';
-import Modal from 'react-native-modal';
-import LocalImages from '../../utils/localImages';
-import CustomButton from '../../components/button/customButton';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
-
+import React, {useState, useEffect} from 'react';
+import loginStyle from './loginStyle';
+import LocalImages from '../../utils/localImages';
+import Modal from 'react-native-modal';
+import ModalView from './Modal';
+import CustomButton from '../../components/button/customButton';
+import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
 const LoginScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
+
+  const modalCallBack = () => {
+    console.log('my modal call back funtuon with user uid',user.user._user.uid);
+    setModalVisible(false)
+// let uid = user.user._user.uid
+//   firestore().collection('Users1').doc(uid).set({
+//     name:'krishna',
+//     uid,
+//   })
+
+
+  };
+
+  const navigation = useNavigation();
+
   return (
     <View style={loginStyle.main}>
       <Image
@@ -32,12 +48,15 @@ const LoginScreen = () => {
           private texting
         </Text>
         <CustomButton
-          onPress={() => console.log('press')}
+          onPress={() => navigation.navigate('signup')}
           ViewStyle={loginStyle.btnStyle}
           text={'Join Now'}
         />
-        <View style={loginStyle.AreadyLoginViewStyle}>
-          <Text style={loginStyle.loginText1}>
+          </View>
+
+
+     
+          <Text style={loginStyle.AreadyLoginViewStyle}>
             {' '}
             {'Already have an account? '}
           </Text>
@@ -48,8 +67,7 @@ const LoginScreen = () => {
             }}>
             <Text style={loginStyle.loginText2}>{'Login'}</Text>
           </TouchableOpacity>
-        </View>
-      </View>
+
       <Modal
         animationOut={'slideOutDown'}
         animationIn={'slideInUp'}
@@ -58,7 +76,7 @@ const LoginScreen = () => {
           setModalVisible(false);
         }}
         isVisible={isModalVisible}>
-        <ModalView callback={() => setModalVisible(false)} />
+        <ModalView callBack={() =>setModalVisible(false)} />
       </Modal>
     </View>
   );

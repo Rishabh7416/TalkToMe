@@ -1,10 +1,9 @@
 import firestore from '@react-native-firebase/firestore';
 
-export const chatStructure = uid => {
-  const subscriber = firestore().collection('Users').doc(uid).set({
-    name: 'Rishabh',
-    uid: uid,
-  });
+export const chatStructure = userDetail => {
+  console.log(userDetail)
+  const subscriber = firestore().collection('Users').doc(userDetail.uid).set(userDetail);
+  
 };
 
 export const getData = (callbackFunction) => {
