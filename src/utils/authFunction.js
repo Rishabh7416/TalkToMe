@@ -6,10 +6,12 @@ export const signInWithPhoneNumberOtp = async (
   failureCallbackFun,
 ) => {
   try {
-    const otpResponse = await auth().signInWithPhoneNumber(phoneNumber);
+    
+    const otpResponse = await auth().signInWithPhoneNumber(phoneNumber) 
     successCallbackFun(otpResponse);
-  } catch (error) {
-    failureCallbackFun();
+  } 
+  catch (error) {
+    failureCallbackFun(error);
   }
 };
 
@@ -20,10 +22,11 @@ export const _verification = async (
   failureCallbackFun,
 ) => {
   try {
+    console.log(otp);
     const user = await confirmOtp.confirm(otp);
     successCallbackFun(user);
   } catch (error) {
-    failureCallbackFun();
+    failureCallbackFun(error);
   }
 };
 

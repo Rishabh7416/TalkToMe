@@ -1,16 +1,17 @@
 import React from 'react';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native';
-import {Store} from './src/redux/store/sagaStore';
-// import {StackNavigation} from './src/routes/routes';
-import Trail from './src/trialFolder/trial'
+import {StackNavigation} from './src/routes/routes';
+import {persistor, Store} from './src/redux/store/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <Provider store={Store}>
-        {/* <StackNavigation /> */}
-        <Trail/>
+        <PersistGate loading={null} persistor={persistor}>
+          <StackNavigation />
+        </PersistGate>
       </Provider>
     </SafeAreaView>
   );

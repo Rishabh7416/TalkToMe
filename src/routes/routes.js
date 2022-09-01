@@ -9,6 +9,9 @@ import ContactList from '../screens/contacts/contactList';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {routeStyles} from '../routes/routeStyles';
+import {vh, vw} from '../utils/dimensions';
+import SignUpScreen from '../screens/signUp';
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -18,7 +21,8 @@ export const StackNavigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="login" component={LoginScreen} />
-        <Stack.Screen name='routes' component={Routes}/>
+        <Stack.Screen name="signup" component={SignUpScreen} />
+        <Stack.Screen name="routes" component={Routes} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -26,16 +30,14 @@ export const StackNavigation = () => {
 
 export default function Routes() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="screens" component={BottomTabRoutes} />
-        <Stack.Screen name="chatlistscreen" component={ChatList} />
-        <Stack.Screen name="chatscreen" component={ChatScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="screens" component={BottomTabRoutes} />
+      <Stack.Screen name="chatlistscreen" component={ChatList} />
+      <Stack.Screen name="chatscreen" component={ChatScreen} />
+    </Stack.Navigator>
   );
 }
 
@@ -52,7 +54,7 @@ function BottomTabRoutes() {
           tabBarIcon: ({focused}) => (
             <Image
               source={require('../assets/images/contactIcon.png')}
-              style={routeStyles.iconStyle}
+              style={{height: 20, width: 20}}
             />
           ),
         }}
@@ -66,12 +68,8 @@ function BottomTabRoutes() {
           },
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/images/chatIcon.png')}
-              style={{
-                height: vw(19),
-                width: vw(25.33),
-                resizeMode: 'contain',
-              }}
+              source={require('../assets/images/contactIcon.png')}
+              style={{height: 20, width: 20}}
             />
           ),
         }}
@@ -85,8 +83,8 @@ function BottomTabRoutes() {
           },
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/images/video.png')}
-              style={{width: 22, height: 20.62, resizeMode: 'contain'}}
+              source={require('../assets/images/contactIcon.png')}
+              style={{height: 20, width: 20}}
             />
           ),
         }}
@@ -100,8 +98,8 @@ function BottomTabRoutes() {
           },
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/images/settings.png')}
-              style={{width: 19.47, height: 20}}
+              source={require('../assets/images/contactIcon.png')}
+              style={{height: 20, width: 20}}
             />
           ),
         }}
