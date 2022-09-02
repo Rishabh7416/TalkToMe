@@ -9,12 +9,24 @@ export const mainHeaderStyles = StyleSheet.create({
     flexDirection: 'row',
   },
   textStyle: {
+    fontWeight: '400',
+    fontSize: 20,
+  },
+  textHeaderStyle: {
     fontWeight: 'bold',
     fontSize: 26,
-    marginLeft: 40,
   },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  profileImageStyle: {
+    height: 35,
+    width: 35,
+    borderRadius: 100 / 2,
+    marginHorizontal: 15,
+  },
+  headerStyle:{
+    marginHorizontal: 10
+  }
 });

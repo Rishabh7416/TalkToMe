@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react';
+import { faker } from '@faker-js/faker';
+import {useSelector} from 'react-redux';
 import {FlatList} from 'react-native-gesture-handler';
 import {chatListStyles} from '../chat/chatListStyles';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import {useSelector} from 'react-redux';
 
 export default function ContactList() {
   const [userList, setUserList] = React.useState([]);
   const navigation = useNavigation();
   const users = useSelector(Store => Store.slice_reducer);
-  console.log('users', users.users);
 
   useEffect(() => {
     firestore()
@@ -36,6 +36,7 @@ export default function ContactList() {
                 navigation.navigate('chatscreen', {
                   userName: item.name,
                   uid: item.uid,
+                  avatar: faker.image.avatar()
                 })
               }
               style={{

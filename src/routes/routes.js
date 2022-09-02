@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native';
 import LoginScreen from '../screens/login';
+import SignUpScreen from '../screens/signUp';
 import ChatList from '../screens/chat/chatList';
 import VideoCall from '../screens/video/videoCall';
 import Settings from '../screens/settings/settings';
@@ -9,9 +10,7 @@ import ContactList from '../screens/contacts/contactList';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {routeStyles} from '../routes/routeStyles';
-import {vh, vw} from '../utils/dimensions';
-import SignUpScreen from '../screens/signUp';
+import LocalImages from '../utils/localImages';
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -22,19 +21,20 @@ export const StackNavigation = () => {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="signup" component={SignUpScreen} />
-        <Stack.Screen name="routes" component={Routes} />
+        <Stack.Screen name="routes" component={Routes}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default function Routes() {
+export default function Routes({details}) {
+  console.log('routes', details);
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="screens" component={BottomTabRoutes} />
+      <Stack.Screen lazy={true} name="screens" component={BottomTabRoutes} />
       <Stack.Screen name="chatlistscreen" component={ChatList} />
       <Stack.Screen name="chatscreen" component={ChatScreen} />
     </Stack.Navigator>
@@ -43,17 +43,15 @@ export default function Routes() {
 
 function BottomTabRoutes() {
   return (
-    <BottomTabs.Navigator screenOptions={{headerShown: false}}>
+    <BottomTabs.Navigator screenOptions={{headerShown: false, lazy: false}}>
       <BottomTabs.Screen
         name="Contacts"
         component={ContactList}
         options={{
-          tabBarLabel: () => {
-            return null;
-          },
+          tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/images/contactIcon.png')}
+              source={LocalImages.contactIcon}
               style={{height: 20, width: 20}}
             />
           ),
@@ -63,13 +61,11 @@ function BottomTabRoutes() {
         name="Chat"
         component={ChatList}
         options={{
-          tabBarLabel: () => {
-            return null;
-          },
+          tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/images/contactIcon.png')}
-              style={{height: 20, width: 20}}
+              source={LocalImages.chatIcon}
+              style={{height: 19, width: 25.33, resizeMode: 'contain'}}
             />
           ),
         }}
@@ -78,13 +74,11 @@ function BottomTabRoutes() {
         name="Video"
         component={VideoCall}
         options={{
-          tabBarLabel: () => {
-            return null;
-          },
+          tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/images/contactIcon.png')}
-              style={{height: 20, width: 20}}
+              source={LocalImages.cameraIcon}
+              style={{height: 20.62, width: 22, resizeMode: 'contain'}}
             />
           ),
         }}
@@ -93,13 +87,11 @@ function BottomTabRoutes() {
         name="Settings"
         component={Settings}
         options={{
-          tabBarLabel: () => {
-            return null;
-          },
+          tabBarLabel: () => null,
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/images/contactIcon.png')}
-              style={{height: 20, width: 20}}
+              source={LocalImages.settingsIcon}
+              style={{height: 20, width: 20, resizeMode: 'contain'}}
             />
           ),
         }}

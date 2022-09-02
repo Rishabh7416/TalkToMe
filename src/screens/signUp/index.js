@@ -27,7 +27,6 @@ const SignUpScreen = () => {
         <Text style={signUpStyles.connectText}>
           {strings.ConnectWithFriends}
         </Text>
-
         <Text style={signUpStyles.inputTitleText}>Name</Text>
         <FormTextInput
           onChangeText={txt => setUserName(txt)}
@@ -46,38 +45,31 @@ const SignUpScreen = () => {
           inpuStyle={signUpStyles.inpuStyle}
           maxLength={100}
         />
-
         <CustomButton
           text={'Join'}
           ViewStyle={signUpStyles.btnStyle}
           textStyle={signUpStyles.btnTextStyle}
-          onPress={() => {
-            console.log('Onpress');
-            setModalVisible(true);
-          }}
+          onPress={() => setModalVisible(true)}
         />
         <Text style={signUpStyles.AreadyLoginViewStyle}>
-          {' '}
           {'Already have an account? '}
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => {
-              setModalVisible(!isModalVisible);
-            }}>
+            onPress={() => setModalVisible(!isModalVisible)}>
             <Text style={signUpStyles.loginText2}>{'Login'}</Text>
           </TouchableOpacity>
         </Text>
       </View>
-
       <Modal
         animationOut={'slideOutDown'}
         animationIn={'slideInUp'}
         style={{marginBottom: 0, marginHorizontal: 0}}
-        onBackdropPress={() => {
-          setModalVisible(false);
-        }}
+        onBackdropPress={() => setModalVisible(false)}
         isVisible={isModalVisible}>
-        <ModalView callBack={user => modalCallBack(user)} />
+        <ModalView
+          callBack={user => modalCallBack(user)}
+          userDetails={userAbout}
+        />
       </Modal>
     </View>
   );

@@ -1,23 +1,34 @@
 import {StyleSheet} from 'react-native';
-import colors from '../../utils/colors';
 
 export const styles = StyleSheet.create({
   leftUser: {
-    backgroundColor: colors.messageLeftBackgroundColor,
-    borderRadius: 100 / 2,
+    marginVertical: 8,
+    backgroundColor: '#e9e9e9',
+    // borderRadius: 100 / 2,
     borderBottomLeftRadius: 0,
     borderTopLeftRadius: 20,
+    height: 'auto',
+    width: 'auto',
+    alignItems: 'center',
+    // paddingHorizontal: 10,
+    // paddingVertical: 5
   },
   rightUser: {
-    backgroundColor: colors.messageRightBackgroundColor,
-    borderRadius: 100 / 2,
+    marginVertical: 8,
+    backgroundColor: '#cfece8',
+    // borderRadius: 100 / 2,
     borderBottomRightRadius: 0,
     borderTopRightRadius: 20,
+    height: 'auto',
+    width: 'auto',
+    alignItems: 'center',
+    // paddingHorizontal: 5,
+    // paddingVertical: 5
   },
   containerStyle: {
-    // backgroundColor: 'black',
-    borderRadius: 100 / 2,
-    height: 55,
+    paddingHorizontal: 20,
     justifyContent: 'center',
+    alignSelf: 'center',
+    borderTopColor: 'white',
   },
 });

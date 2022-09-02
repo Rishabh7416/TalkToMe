@@ -1,17 +1,16 @@
 import React from 'react';
-import {
-  Bubble,
-  GiftedChat,
-  InputToolbar,
-} from 'react-native-gifted-chat';
 import {useSelector} from 'react-redux';
-import colors from '../../utils/colors';
+import {View, Image} from 'react-native';
 import {styles} from './chatScreenStyles';
-import {useRoute} from '@react-navigation/native';
+import LocalImages from '../../utils/localImages';
+import MainHeader from '../../components/headers/mainHeader';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {messageToFirestore, renderMessageList} from '../../utils/fireStore';
+import {Bubble, GiftedChat, InputToolbar, Send} from 'react-native-gifted-chat';
 
 export default function ChatScreen() {
   const route = useRoute();
+  const navigation = useNavigation();
   const [messages, setMessages] = React.useState([]);
   const users = useSelector(Store => Store.slice_reducer);
 
@@ -39,39 +38,55 @@ export default function ChatScreen() {
       createdAt: new Date().getTime(),
     };
     messageToFirestore(roomid, myMesssage._id, myMesssage);
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
+    setMessages(previousMessages =>
+      GiftedChat.append(previousMessages, messages),
+    );
   }, []);
 
-  const renderBubble = props => {
+  const renderBubble = props => (
+    <Bubble
+      {...props}
+      textStyle={{
+        left: {color: '#383737'},
+        right: {color: '#017665'},
+      }}
+      wrapperStyle={{
+        left: styles.leftUser,
+        right: styles.rightUser,
+      }}
+    />
+  );
+
+  const renderInputToolbar = props => (
+    <InputToolbar {...props} containerStyle={styles.containerStyle} />
+  );
+
+  const onrenderSend = props => {
     return (
-      <Bubble
-        {...props}
-        textStyle={{
-          left: {color: colors.messagetLeftTextDarkerGreen},
-          right: {color: colors.messagetRightTextDarkerGreen},
-        }}
-        wrapperStyle={{
-          left: styles.leftUser,
-          right: styles.rightUser,
-        }}
-      />
+      <Send {...props}>
+        <Image source={LocalImages.sendIcon} style={{height: 25, width: 25}} />
+      </Send>
     );
   };
 
-  const renderInputToolbar = props => {
-    return <InputToolbar {...props} containerStyle={styles.containerStyle} />;
-  };
-
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={messages => onSend(messages)}
-      user={{
-        _id: users.users.uid,
-      }}
-      renderBubble={props => renderBubble(props)}
-      renderInputToolbar={props => renderInputToolbar(props)}
-      placeholder={'Type something'}
-    />
+    <View style={{flex: 1}}>
+      <MainHeader
+        name = {route.params.userName}
+        handleNavigation = {() => navigation.goBack()}
+        images = {route.params.avatar}
+        chatScreenPhoneIcon = {LocalImages.phoneIcon}
+      />
+      <GiftedChat
+        messages={messages}
+        minInputToolbarHeight={50}
+        placeholder={'Send Message'}
+        user={{_id: users.users.uid, avatar: route.params.avatar}}
+        onSend={messages => onSend(messages)}
+        renderSend={onrenderSend}
+        renderBubble={renderBubble}
+        renderInputToolbar={renderInputToolbar}
+      />
+    </View>
   );
 }
