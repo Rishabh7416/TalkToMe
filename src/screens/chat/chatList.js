@@ -26,17 +26,6 @@ export default React.memo(function ChatList() {
   }
 
   function createRoom() {
-    // firestore()
-    //   .collection('Users')
-    //   .get()
-    //   .then(response => {
-    //     const resResult = response.docs.map(element => element.data());
-    //     // callback(resResult);
-    //     setUserList(resResult);
-    //   })
-    //   .catch(() => {
-    //     console.log('error');
-    //   });
     navigation.navigate('chatscreen');
   }
 

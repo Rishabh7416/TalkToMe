@@ -23,6 +23,17 @@ import {addUsers, addUid} from '../../redux/reducers/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 import {chatStructure} from '../../utils/fireStore';
 
+const intial = {
+  count: 0
+}
+
+function reducer(state, action){
+  switch(action.type){
+    case 'ActionType':
+      return {}
+  }
+}
+
 const Modal = ({callBack}) => {
   const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
   const navigation = useNavigation();

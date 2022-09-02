@@ -1,28 +1,24 @@
-import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {strings} from '../../constants/string';
 import signUpStyles from './style';
-import FormTextInput from '../../components/textInput/formTextInput';
-import CustomButton from '../../components/button/customButton';
 import Modal from 'react-native-modal';
 import ModalView from '../login/Modal';
-import loginStyle from '../login/loginStyle';
-import { addUsers } from '../../redux/reducers/reducers';
-import { useDispatch } from 'react-redux';
-import { chatStructure } from '../../utils/fireStore';
-const SignUpScreen = () => {
+import {useDispatch} from 'react-redux';
+import {strings} from '../../constants/string';
+import {chatStructure} from '../../utils/fireStore';
+import {View, Text, TouchableOpacity} from 'react-native';
+import CustomButton from '../../components/button/customButton';
+import FormTextInput from '../../components/textInput/formTextInput';
 
+const SignUpScreen = () => {
   const [userName, setUserName] = React.useState('');
   const [userAbout, setUserAbout] = React.useState('');
   const [isModalVisible, setModalVisible] = React.useState(false);
-const dispacth =useDispatch()
+  const dispacth = useDispatch();
 
-  const modalCallBack = (user) => { 
-      console.log('modalcallback',user.user._user.uid)
-      setModalVisible(false)
-      console.log(userName,userAbout)
-    chatStructure({name:userName,about:userAbout,uid:user.user._user.uid})
-   }
+  const modalCallBack = user => {
+    setModalVisible(false);
+    chatStructure({name: userName, about: userAbout, uid: user.user._user.uid});
+  };
 
   return (
     <View style={signUpStyles.main}>
@@ -57,14 +53,14 @@ const dispacth =useDispatch()
           textStyle={signUpStyles.btnTextStyle}
           onPress={() => {
             console.log('Onpress');
-            setModalVisible(true)
+            setModalVisible(true);
           }}
         />
         <Text style={signUpStyles.AreadyLoginViewStyle}>
           {' '}
           {'Already have an account? '}
           <TouchableOpacity
-            activeOpacity={0.7}              
+            activeOpacity={0.7}
             onPress={() => {
               setModalVisible(!isModalVisible);
             }}>
@@ -81,7 +77,7 @@ const dispacth =useDispatch()
           setModalVisible(false);
         }}
         isVisible={isModalVisible}>
-        <ModalView callBack={(user)=>modalCallBack(user)} />
+        <ModalView callBack={user => modalCallBack(user)} />
       </Modal>
     </View>
   );

@@ -1,15 +1,14 @@
+import React from 'react';
 import {
-  Avatar,
   Bubble,
   GiftedChat,
   InputToolbar,
 } from 'react-native-gifted-chat';
-import React from 'react';
-import {StyleSheet} from 'react-native';
-import colors from '../../utils/colors';
-import {useRoute} from '@react-navigation/native';
-import firestore from '@react-native-firebase/firestore';
 import {useSelector} from 'react-redux';
+import colors from '../../utils/colors';
+import {styles} from './chatScreenStyles';
+import {useRoute} from '@react-navigation/native';
+import {messageToFirestore, renderMessageList} from '../../utils/fireStore';
 
 export default function ChatScreen() {
   const route = useRoute();
@@ -20,10 +19,11 @@ export default function ChatScreen() {
     users.users.uid > route.params.uid
       ? `${users.users.uid}-${route.params.uid}`
       : `${route.params.uid}-${users.users.uid}`;
-  console.log('roomid', roomid);    
 
   React.useLayoutEffect(() => {
-    console.log('users', users);
+    renderMessageList(roomid, users.users.uid, msgResult =>
+      setMessages(msgResult),
+    );
   }, []);
 
   const onSend = React.useCallback((messages = []) => {
@@ -38,14 +38,8 @@ export default function ChatScreen() {
       deletedForEveryOne: false,
       createdAt: new Date().getTime(),
     };
-    firestore()
-      .collection('ChatRoom')
-      .doc(roomid)
-      .collection('Messages')
-      .doc(myMesssage._id)
-      .set({...myMesssage});
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages),
-    );
+    messageToFirestore(roomid, myMesssage._id, myMesssage);
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
   }, []);
 
   const renderBubble = props => {
@@ -69,38 +63,15 @@ export default function ChatScreen() {
   };
 
   return (
-    <React.Fragment>
-      <GiftedChat
-        messages={messages}
-        onSend={messages => onSend(messages)}
-        user={{
-          _id: 1,
-        }}
-        renderBubble={props => renderBubble(props)}
-        renderInputToolbar={props => renderInputToolbar(props)}
-        placeholder={'Type something'}
-      />
-    </React.Fragment>
+    <GiftedChat
+      messages={messages}
+      onSend={messages => onSend(messages)}
+      user={{
+        _id: users.users.uid,
+      }}
+      renderBubble={props => renderBubble(props)}
+      renderInputToolbar={props => renderInputToolbar(props)}
+      placeholder={'Type something'}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  leftUser: {
-    backgroundColor: colors.messageLeftBackgroundColor,
-    borderRadius: 100 / 2,
-    borderBottomLeftRadius: 0,
-    borderTopLeftRadius: 20,
-  },
-  rightUser: {
-    backgroundColor: colors.messageRightBackgroundColor,
-    borderRadius: 100 / 2,
-    borderBottomRightRadius: 0,
-    borderTopRightRadius: 20,
-  },
-  containerStyle: {
-    // backgroundColor: 'black',
-    borderRadius: 100 / 2,
-    height: 55,
-    justifyContent: 'center',
-  },
-});
