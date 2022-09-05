@@ -7,16 +7,22 @@ import {chatStructure} from '../../utils/fireStore';
 import CustomButton from '../../components/button/customButton';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import FormTextInput from '../../components/textInput/formTextInput';
-import { normalize, vh, vw } from '../../utils/dimensions';
+import {normalize, vh, vw} from '../../utils/dimensions';
+import {useDispatch} from 'react-redux';
+import {aboutUsers} from '../../redux/reducers/reducers';
 
 const SignUpScreen = () => {
   const [userName, setUserName] = React.useState('');
   const [userAbout, setUserAbout] = React.useState('');
   const [isModalVisible, setModalVisible] = React.useState(false);
+  const dispatch = useDispatch();
 
   const modalCallBack = user => {
     setModalVisible(false);
     chatStructure({name: userName, about: userAbout, uid: user.user._user.uid});
+    dispatch(
+      aboutUsers({name: userName, about: userAbout, uid: user.user._user.uid}),
+    );
   };
 
   return (
@@ -87,20 +93,20 @@ const SignUpScreen = () => {
 export default SignUpScreen;
 
 const styles = StyleSheet.create({
-  userInfoIcon:{
+  userInfoIcon: {
     height: vw(20),
     width: vw(20),
     alignSelf: 'center',
     position: 'absolute',
     left: vw(45),
-    top: vh(172)
+    top: vh(172),
   },
-  userProfileIcon:{
+  userProfileIcon: {
     height: vw(20),
     width: vw(20),
     alignSelf: 'center',
     // position: 'absolute',
     right: normalize(140),
-    top: normalize(35)
-  }
-})
+    top: normalize(35),
+  },
+});

@@ -11,6 +11,7 @@ export default function ContactList() {
   const [userList, setUserList] = React.useState([]);
   const navigation = useNavigation();
   const users = useSelector(Store => Store.slice_reducer);
+  console.log('user', users)
 
   useEffect(() => {
     firestore()

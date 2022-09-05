@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  messageToFirestore,
   renderMessageList,
+  messageToFirestore,
   typingStatusTrueToFirestore,
   typingStatusFalseToFirestore,
+  renderStatus,
 } from '../../utils/fireStore';
 import {Image} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -12,49 +13,68 @@ import LocalImages from '../../utils/localImages';
 import MainHeader from '../../components/headers/mainHeader';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {Bubble, GiftedChat, InputToolbar, Send} from 'react-native-gifted-chat';
+import firestore from '@react-native-firebase/firestore';
 
 export default function ChatScreen() {
   const route = useRoute();
   const navigation = useNavigation();
+  const [status, setStatus] = React.useState(false);
   const [messages, setMessages] = React.useState([]);
   const users = useSelector(Store => Store.slice_reducer);
-  const [status, setStatus] = React.useState(false);
-  console.log('status', status);
+  const userAbout = useSelector(Store => Store.about_reducer);
+  console.log('aboutUsers ---> ', users);
+
+  React.useLayoutEffect(() => {
+    console.log('aboutUsers', userAbout);
+    renderMessageList(roomid, users.users.uid, msgResult =>
+      setMessages(msgResult),
+    );
+    const listener = renderStatus(roomid, route.params.uid, status => {
+      setStatus(status);
+    });
+    return listener;
+  }, []);
 
   const roomid =
     users.users.uid > route.params.uid
       ? `${users.users.uid}-${route.params.uid}`
       : `${route.params.uid}-${users.users.uid}`;
 
-  React.useLayoutEffect(() => {
-    renderMessageList(roomid, users.users.uid, msgResult =>
-      setMessages(msgResult),
-    );
-  }, []);
-
   const debouncing = (callbackFunction, wait) => {
     let timer;
     return args => {
+      if (args.length > 0) typingStatusTrueToFirestore(roomid, users.users.uid);
       clearTimeout(timer);
       timer = setTimeout(() => {
         callbackFunction(args);
       }, wait);
-      setStatus(true);
     };
   };
 
   const typingStatus = debouncing(() => {
     typingStatusFalseToFirestore(roomid, users.users.uid);
-    setStatus(false);
   }, 2000);
 
-  const isTyping = text => {
-    if (text.length > 0) typingStatus(false);
-    typingStatusTrueToFirestore(roomid, users.users.uid);
-  };
-
-  const onSend = React.useCallback((messages = []) => {
-    const msg = messages[0];
+  const onSend = React.useCallback((message = []) => {
+    if (messages.length === 0) {
+      firestore()
+        .collection('Users')
+        .doc(users.users.id)
+        .collection('Inbox')
+        .doc(route.params.uid)
+        .set({
+          // name:
+        });
+      firestore()
+        .collection('Users')
+        .doc(route.params.uid)
+        .collection('Inbox')
+        .doc(users.users.id)
+        .set({
+          name: route.params.userName,
+        });
+    }
+    const msg = message[0];
     const myMesssage = {
       ...msg,
       sentBy: users.users.uid,
@@ -67,7 +87,7 @@ export default function ChatScreen() {
     };
     messageToFirestore(roomid, myMesssage._id, myMesssage);
     setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages),
+      GiftedChat.append(previousMessages, message),
     );
   }, []);
 
@@ -110,14 +130,15 @@ export default function ChatScreen() {
         handleNavigation={handleNavigation}
       />
       <GiftedChat
+        isTyping={status}
         messages={messages}
         renderSend={onrenderSend}
         minInputToolbarHeight={50}
         renderBubble={renderBubble}
+        onInputTextChanged={typingStatus}
         placeholder={'Send Message...'}
         onSend={messages => onSend(messages)}
         renderInputToolbar={renderInputToolbar}
-        onInputTextChanged={isTyping}
         user={{_id: users.users.uid, avatar: route.params.avatar}}
       />
     </React.Fragment>

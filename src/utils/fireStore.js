@@ -73,3 +73,14 @@ export const typingStatusTrueToFirestore = (roomid, userID) => {
       isTyping: true,
     });
 };
+
+export const renderStatus = (roomid, receiversID, successCallback) => {
+  firestore()
+    .collection('ChatRoom')
+    .doc(roomid)
+    .collection('TypingStatus')
+    .doc(receiversID)
+    .onSnapshot((status) => {
+      successCallback(status?.data()?.isTyping);
+    });
+};

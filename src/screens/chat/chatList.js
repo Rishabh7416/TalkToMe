@@ -24,6 +24,10 @@ export default React.memo(function ChatList() {
     setFilteredData(filtering);
   };
 
+  React.useEffect(() => {
+    // firestore().collection('ChatRoom').doc()
+  }, [])
+
   return (
     <React.Fragment>
       <MainHeader handleNavigation={() => handleNavigation()} name={'Chat'} />

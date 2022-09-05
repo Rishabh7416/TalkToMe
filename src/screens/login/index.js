@@ -11,7 +11,7 @@ import {View, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 const LoginScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
-
+  
   const modalCallBack = () => {
     setModalVisible(false);
   };

@@ -16,6 +16,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   slice_reducer: sliceReducer,
+  about_reducer: aboutUsers
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

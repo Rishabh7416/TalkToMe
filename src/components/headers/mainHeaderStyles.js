@@ -3,7 +3,7 @@ import {vw, vh, normalize} from '../../utils/dimensions';
 
 export const mainHeaderStyles = StyleSheet.create({
   mainContainer: {
-    height: vh(42),
+    height: vh(50),
     justifyContent: 'space-between',
     paddingHorizontal: vw(20),
     flexDirection: 'row',
