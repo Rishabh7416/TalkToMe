@@ -51,3 +51,25 @@ export const messageToFirestore = (roomid, messageID, messages) => {
     .doc(messageID)
     .set({...messages});
 };
+
+export const typingStatusFalseToFirestore = (roomid, userID) => {
+  firestore()
+    .collection('ChatRoom')
+    .doc(roomid)
+    .collection('TypingStatus')
+    .doc(userID)
+    .set({
+      isTyping: false,
+    });
+};
+
+export const typingStatusTrueToFirestore = (roomid, userID) => {
+  firestore()
+    .collection('ChatRoom')
+    .doc(roomid)
+    .collection('TypingStatus')
+    .doc(userID)
+    .set({
+      isTyping: true,
+    });
+};

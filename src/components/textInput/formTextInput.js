@@ -9,11 +9,11 @@ const FormTextInput = ({
   maxLength,
   multiline,
   onChangeText,
-  
 }) => {
   return (
     <View style={textInputView}>
       <TextInput
+        // onBlur={}
         multiline={multiline}
         placeholder={placeholder}
         numberOfLines={1}
