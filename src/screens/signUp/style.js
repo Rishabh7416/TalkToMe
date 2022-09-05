@@ -27,7 +27,7 @@ const signUpStyles = StyleSheet.create({
         fontSize:normalize(13),
     },
     inputTitleText:{
-        marginTop:vh(30),
+        marginTop:vh(15),
         fontSize:normalize(16),
         fontWeight:'600',
         letterSpacing:vw(0.5)

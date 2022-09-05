@@ -33,6 +33,7 @@ const Modal = ({callBack}) => {
   const [loaderState, setLoaderState] = useState(false);
   const [count, setCount] = useState(false);
 
+
   const onPress = item => {
     console.log(selection);
     if (item === -1 && selection !== null) {
@@ -103,12 +104,9 @@ const Modal = ({callBack}) => {
           dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: false});
           dispatch(addUsers(user.user._user));
           callBack(user);
-          // chatStructure(user.user._user.uid);
-          navigation.navigate('routes');
         },
         error => {
           console.log('errro from the verfication else catch', error);
-          // navigation.navigate('routes');
         },
       );
     }

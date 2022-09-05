@@ -6,24 +6,35 @@ import FormTextInput from '../../components/textInput/formTextInput';
 import CustomButton from '../../components/button/customButton';
 import Modal from 'react-native-modal';
 import ModalView from '../login/Modal';
-import loginStyle from '../login/loginStyle';
-import { addUsers } from '../../redux/reducers/reducers';
 import { useDispatch } from 'react-redux';
-import { chatStructure } from '../../utils/fireStore';
+import storage from '@react-native-firebase/storage'
+import { chatStructure,setImagetoStorage,setRefrence,getImageLink } from '../../utils/fireStore';
+import AddImage from '../../components/AddImage';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 const SignUpScreen = () => {
 
   const [userName, setUserName] = React.useState('');
   const [userAbout, setUserAbout] = React.useState('');
+  const [imagePath,setImagePath]=React.useState('https://cdn-icons-png.flaticon.com/512/747/747545.png')
+  const {users:{uid}}=useSelector((store)=>store.slice_reducer)
   const [isModalVisible, setModalVisible] = React.useState(false);
-const dispacth =useDispatch()
+  const reference=storage().ref(`${uid}`)
+ 
 
-  const modalCallBack = (user) => { 
-      console.log('modalcallback',user.user._user.uid)
-      setModalVisible(false)
-      console.log(userName,userAbout)
-    chatStructure({name:userName,about:userAbout,uid:user.user._user.uid})
-   }
+const navigation=useNavigation();
 
+
+
+   const  addImageCallBack = (image) => {
+   Platform.OS==='ios'?setImagePath(image.sourceURL):setImagePath(image.path)
+    console.log('addImage and path',imagePath)
+     setImagetoStorage(imagePath,reference,(imageLink)=>{console.log(imageLink) 
+      setImagePath(imageLink)
+    })
+    console.log('ref' ,reference)
+  
+  }
   return (
     <View style={signUpStyles.main}>
       <View style={signUpStyles.secondViewStyle}>
@@ -31,6 +42,8 @@ const dispacth =useDispatch()
         <Text style={signUpStyles.connectText}>
           {strings.ConnectWithFriends}
         </Text>
+
+        <AddImage imagePath={imagePath} getImagePath={(image)=>addImageCallBack(image)}/>
 
         <Text style={signUpStyles.inputTitleText}>Name</Text>
         <FormTextInput
@@ -56,21 +69,11 @@ const dispacth =useDispatch()
           ViewStyle={signUpStyles.btnStyle}
           textStyle={signUpStyles.btnTextStyle}
           onPress={() => {
-            console.log('Onpress');
-            setModalVisible(true)
+            console.log('Onpress')
+            chatStructure({name:userName,about:userAbout,profileImage:imagePath,uid:uid})
+           navigation.navigate('routes')
           }}
         />
-        <Text style={signUpStyles.AreadyLoginViewStyle}>
-          {' '}
-          {'Already have an account? '}
-          <TouchableOpacity
-            activeOpacity={0.7}              
-            onPress={() => {
-              setModalVisible(!isModalVisible);
-            }}>
-            <Text style={signUpStyles.loginText2}>{'Login'}</Text>
-          </TouchableOpacity>
-        </Text>
       </View>
 
       <Modal

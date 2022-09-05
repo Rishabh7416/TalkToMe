@@ -5,21 +5,31 @@ import LocalImages from '../../utils/localImages';
 import Modal from 'react-native-modal';
 import ModalView from './Modal';
 import CustomButton from '../../components/button/customButton';
-import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
+import {getData} from '../../utils/fireStore';
 const LoginScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [Users, setUsers] = useState([]);
 
-  const modalCallBack = () => {
-    console.log('my modal call back funtuon with user uid',user.user._user.uid);
-    setModalVisible(false)
-// let uid = user.user._user.uid
-//   firestore().collection('Users1').doc(uid).set({
-//     name:'krishna',
-//     uid,
-//   })
+  useEffect(() => {
+    console.log('Join Now Screen');
+    getData(res => setUsers(res));
+  }, []);
 
+  const checkUser = uid => {
+    console.log(Users);
+    let userIndex = Users.findIndex(ele => ele.uid === uid);
 
+    if (userIndex >= 0) {
+      navigation.navigate('routes');
+    } else {
+      navigation.navigate('signup');
+    }
+  };
+  const modalCallBack = user => {
+    console.log('my modal call back funtuon with user uid', user);
+    checkUser(user.user._user.uid);
+    setModalVisible(false);
   };
 
   const navigation = useNavigation();
@@ -47,27 +57,13 @@ const LoginScreen = () => {
           Connect with each other while chatting or calling. Enjoy safe and
           private texting
         </Text>
+
         <CustomButton
-          onPress={() => navigation.navigate('signup')}
+          onPress={() => setModalVisible(true)}
           ViewStyle={loginStyle.btnStyle}
           text={'Join Now'}
         />
-          </View>
-
-
-     
-          <Text style={loginStyle.AreadyLoginViewStyle}>
-            {' '}
-            {'Already have an account? '}
-            <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => {
-              setModalVisible(!isModalVisible);
-            }}>
-            <Text style={loginStyle.loginText2}>{'Login'}</Text>
-          </TouchableOpacity>
-          </Text>
-         
+      </View>
 
       <Modal
         animationOut={'slideOutDown'}
@@ -77,7 +73,7 @@ const LoginScreen = () => {
           setModalVisible(false);
         }}
         isVisible={isModalVisible}>
-        <ModalView callBack={() =>setModalVisible(false)} />
+        <ModalView callBack={modalCallBack} />
       </Modal>
     </View>
   );
