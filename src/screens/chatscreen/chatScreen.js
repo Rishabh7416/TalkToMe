@@ -22,10 +22,8 @@ export default function ChatScreen() {
   const [messages, setMessages] = React.useState([]);
   const users = useSelector(Store => Store.slice_reducer);
   const userAbout = useSelector(Store => Store.about_reducer);
-  console.log('aboutUsers ---> ', users);
 
   React.useLayoutEffect(() => {
-    console.log('aboutUsers', userAbout);
     renderMessageList(roomid, users.users.uid, msgResult =>
       setMessages(msgResult),
     );
@@ -121,6 +119,42 @@ export default function ChatScreen() {
     );
   };
 
+  const messaging = (context, message) => {
+    let options;
+    let cancelButtonIndex;
+    options = ['Copy Text', 'Delete For Me', 'Delete For Everyone', 'Cancel'];
+    cancelButtonIndex = options.length - 1;
+    context.actionSheet().showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      buttonIndex => {
+        switch (buttonIndex) {
+          case 0:
+            Clipboard.setString(message.text);
+            break;
+          case 1:
+            firestore()
+              .collection('ChatRoom')
+              .doc(roomid)
+              .collection('Messages')
+              .doc(message._id)
+              .update({deletedBy: message.deletedBy == '' ? users.users.uid : roomid});
+            break;
+          case 2:
+            firestore()
+              .collection('ChatRoom')
+              .doc(roomid)
+              .collection('Messages')
+              .doc(message._id)
+              .update({deletedBy: roomid});
+            break;
+        }
+      },
+    );
+  };
+
   return (
     <React.Fragment>
       <MainHeader
@@ -140,6 +174,7 @@ export default function ChatScreen() {
         onSend={messages => onSend(messages)}
         renderInputToolbar={renderInputToolbar}
         user={{_id: users.users.uid, avatar: route.params.avatar}}
+        onLongPress={(context, message) => messaging(context, message)}
       />
     </React.Fragment>
   );

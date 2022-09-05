@@ -32,13 +32,7 @@ export const renderMessageList = (roomid, userID, successCallback) => {
       const msgResult = msg._docs
         .map(element => element._data)
         .sort((x, y) => y.createdAt - x.createdAt)
-        .filter(element =>
-          element.deletedForEveryOne
-            ? false
-            : element.deletedBy
-            ? element.deletedBy !== userID
-            : true,
-        );
+        .filter(element => !element.deletedBy.includes(userID));
       successCallback(msgResult);
     });
 };
