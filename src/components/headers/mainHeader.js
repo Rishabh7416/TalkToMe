@@ -8,10 +8,9 @@ export default function MainHeader({
   images,
   chatScreenPhoneIcon,
 }) {
-
   const addFunction = () => {
     let arr = [];
-  }
+  };
 
   return (
     <View style={mainHeaderStyles.mainContainer}>
@@ -40,32 +39,35 @@ export default function MainHeader({
           }>
           {name}
         </Text>
+        <Text>{'online'}</Text>
       </TouchableOpacity>
-      {<View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <TouchableOpacity>
-          <Image
-            source={chatScreenPhoneIcon}
-            style={{
-              height: 32,
-              width: 32,
-              backgroundColor: 'black',
-              resizeMode: 'contain',
-              marginHorizontal: 40,
-            }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image
-            source={chatScreenPhoneIcon}
-            style={{
-              height: 32,
-              width: 32,
-              backgroundColor: 'black',
-              resizeMode: 'contain',
-            }}
-          />
-        </TouchableOpacity>
-      </View>}
+      {
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity>
+            <Image
+              source={chatScreenPhoneIcon}
+              style={{
+                height: 32,
+                width: 32,
+                backgroundColor: 'black',
+                resizeMode: 'contain',
+                marginHorizontal: 40,
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              source={chatScreenPhoneIcon}
+              style={{
+                height: 32,
+                width: 32,
+                backgroundColor: 'black',
+                resizeMode: 'contain',
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      }
     </View>
   );
 }

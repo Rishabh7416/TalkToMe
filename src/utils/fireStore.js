@@ -78,3 +78,4 @@ export const renderStatus = (roomid, receiversID, successCallback) => {
       successCallback(status?.data()?.isTyping);
     });
 };
+

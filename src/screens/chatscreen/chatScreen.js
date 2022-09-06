@@ -6,14 +6,14 @@ import {
   typingStatusFalseToFirestore,
   renderStatus,
 } from '../../utils/fireStore';
-import {Image} from 'react-native';
 import {useSelector} from 'react-redux';
 import {styles} from './chatScreenStyles';
+import {Image, AppState} from 'react-native';
 import LocalImages from '../../utils/localImages';
+import firestore from '@react-native-firebase/firestore';
 import MainHeader from '../../components/headers/mainHeader';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {Bubble, GiftedChat, InputToolbar, Send} from 'react-native-gifted-chat';
-import firestore from '@react-native-firebase/firestore';
 
 export default function ChatScreen() {
   const route = useRoute();
@@ -140,7 +140,9 @@ export default function ChatScreen() {
               .doc(roomid)
               .collection('Messages')
               .doc(message._id)
-              .update({deletedBy: message.deletedBy == '' ? users.users.uid : roomid});
+              .update({
+                deletedBy: message.deletedBy == '' ? users.users.uid : roomid,
+              });
             break;
           case 2:
             firestore()
