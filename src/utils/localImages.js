@@ -7,6 +7,11 @@ const LocalImages = {
   backIcon: require('../assets/images/backIcon.png'),
   menuIcon: require('../assets/images/menuIcon.png'),
   profileIcon: require('../assets/images/userImage.png'),
+  sendIcon: require('../assets/images/send.png'),
+  chatIcon: require('../assets/images/chatIcon.png'),
+  contactIcon: require('../assets/images/contactIcon.png'),
+  cameraIcon: require('../assets/images/cameraIcon.png'),
+  settingsIcon: require('../assets/images/settingsIcon.png')
 };
 
 export default LocalImages;

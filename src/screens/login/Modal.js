@@ -14,31 +14,29 @@ import {
 } from '../../utils/authFunction';
 import React, {useState} from 'react';
 import colors from '../../utils/colors';
-import LocalImages from '../../utils/localImages';
-import {vw, normalize, vh} from '../../utils/dimensions';
-import {useNavigation} from '@react-navigation/native';
-import CustomButton from '../../components/button/customButton';
+import {useDispatch} from 'react-redux';
 import {strings} from '../../constants/string';
-import {addUsers, addUid} from '../../redux/reducers/reducers';
-import {useDispatch, useSelector} from 'react-redux';
-import {chatStructure} from '../../utils/fireStore';
+import LocalImages from '../../utils/localImages';
+import {useNavigation} from '@react-navigation/native';
+import {addUsers} from '../../redux/reducers/reducers';
+import {vw, normalize, vh} from '../../utils/dimensions';
+import CustomButton from '../../components/button/customButton';
 
-const Modal = ({callBack}) => {
-  const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
-  const navigation = useNavigation();
+const Modal = ({callBack, userDetails}) => {
+  console.log('userDetails', userDetails);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const [count, setCount] = useState(false);
   const [inputText, setInputText] = useState('');
-  const [selection, setSelection] = useState({start: 0, end: 0});
   const [confrimOtp, setConfirmOtp] = useState(null);
   const [loaderState, setLoaderState] = useState(false);
-  const [count, setCount] = useState(false);
+  const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
+  const [selection, setSelection] = useState({start: 0, end: 0});
 
   const onPress = item => {
     console.log(selection);
     if (item === -1 && selection !== null) {
       let tempText = inputText?.split('');
-      console.log('temp arr', tempText);
-
       {
         selection.start > 0 &&
           tempText.splice(
@@ -46,11 +44,7 @@ const Modal = ({callBack}) => {
             selection.end - (selection.start - 1),
           );
       }
-
-      console.log('tempdeleted', tempText);
-
       setInputText(tempText.join(''));
-
       selection.start > 0 &&
         setSelection({start: selection.start - 1, end: selection.end - 1});
     } else if (item === -1) {
@@ -58,9 +52,7 @@ const Modal = ({callBack}) => {
     } else {
       let tempText = inputText?.split('');
       tempText.splice(selection.start, 0, item);
-      console.log(tempText.join(''));
       setSelection({start: selection.start + 1, end: selection.end + 1});
-
       setInputText(tempText.join(''));
     }
   };
@@ -102,13 +94,12 @@ const Modal = ({callBack}) => {
         user => {
           dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: false});
           dispatch(addUsers(user.user._user));
+          console.log('users', user);
           callBack(user);
-          // chatStructure(user.user._user.uid);
-          navigation.navigate('routes');
+          navigation.navigate('routes', {details: userDetails});
         },
         error => {
           console.log('errro from the verfication else catch', error);
-          // navigation.navigate('routes');
         },
       );
     }

@@ -4,56 +4,39 @@ import {chatListStyles} from './chatListStyles';
 import LocalImages from '../../utils/localImages';
 import Story from '../../components/stories/story';
 import {userData} from '../../constants/localData';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import firestore from '@react-native-firebase/firestore';
 import MainHeader from '../../components/headers/mainHeader';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import CustomUserList from '../../components/userList/customUserList';
 import CustomTextInput from '../../components/textInput/customTextInput';
 
 export default React.memo(function ChatList() {
   const navigation = useNavigation();
   const users = useSelector(Store => Store.slice_reducer);
-  const [userlist, setUserList] = React.useState([]);
-  console.log('userlist', userlist);
-  const route = useRoute();
+  // const [userlist, setUserList] = React.useState([]);
+  const [filteredData, setFilteredData] = React.useState(users);
 
-  function handleNavigation() {
-    navigation.goBack('Contacts');
-  }
+  const handleNavigation = () => navigation.goBack('Contacts');
+  const listHeaderComponent = () => <Story horizontal={true} />;
+  const createRoom = () => navigation.navigate('chatscreen');
 
-  function listHeaderComponent() {
-    return <Story horizontal={true} />;
-  }
+  const search = txt => {
+    let filtering = users.filter(element => element.message.includes(txt));
+    setFilteredData(filtering);
+  };
 
-  function createRoom() {
-    // firestore()
-    //   .collection('Users')
-    //   .get()
-    //   .then(response => {
-    //     const resResult = response.docs.map(element => element.data());
-    //     // callback(resResult);
-    //     setUserList(resResult);
-    //   })
-    //   .catch(() => {
-    //     console.log('error');
-    //   });
-    navigation.navigate('chatscreen');
-  }
-
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    // firestore().collection('ChatRoom').doc()
+  }, [])
 
   return (
     <React.Fragment>
-      <MainHeader
-        handleNavigation={() => handleNavigation()}
-        headerText={'Chat'}
-      />
+      <MainHeader handleNavigation={() => handleNavigation()} name={'Chat'} />
       <CustomTextInput
         placeholder="Search here"
         micIcon={LocalImages.micIcon}
         placeholderTextColor={'grey'}
         searchIcon={LocalImages.searchIcon}
-        // searchFunction={txt => search(txt)}
+        searchFunction={txt => search(txt)}
         textInputStyle={chatListStyles.textInputStyle}
         mainContainer={chatListStyles.textInputMainContainer}
       />
@@ -72,13 +55,3 @@ export default React.memo(function ChatList() {
     </React.Fragment>
   );
 });
-
-// const route = useRoute();
-// const [filteredData, setFilteredData] = React.useState(userData);
-// const [filteredData, setFilteredData] = React.useState(users);
-// function search(txt) {
-//   let filtering = userData.filter(element => {
-//     return element.message.includes(txt);
-//   });
-//   setFilteredData(filtering);
-// }
