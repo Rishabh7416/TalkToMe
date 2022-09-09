@@ -5,10 +5,11 @@ import {
   typingStatusTrueToFirestore,
   typingStatusFalseToFirestore,
   renderStatus,
+  handleSeen,
 } from '../../utils/fireStore';
+import {Image} from 'react-native';
 import {useSelector} from 'react-redux';
 import {styles} from './chatScreenStyles';
-import {Image, AppState} from 'react-native';
 import LocalImages from '../../utils/localImages';
 import firestore from '@react-native-firebase/firestore';
 import MainHeader from '../../components/headers/mainHeader';
@@ -21,7 +22,6 @@ export default function ChatScreen() {
   const [status, setStatus] = React.useState(false);
   const [messages, setMessages] = React.useState([]);
   const users = useSelector(Store => Store.slice_reducer);
-  const userAbout = useSelector(Store => Store.about_reducer);
 
   React.useLayoutEffect(() => {
     renderMessageList(roomid, users.users.uid, msgResult =>
@@ -30,8 +30,13 @@ export default function ChatScreen() {
     const listener = renderStatus(roomid, route.params.uid, status => {
       setStatus(status);
     });
+    
     return listener;
   }, []);
+
+  React.useEffect(()=>{
+    handleSeen(roomid, users.users.uid)
+  },[])
 
   const roomid =
     users.users.uid > route.params.uid

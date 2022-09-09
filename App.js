@@ -13,7 +13,7 @@ const App = () => {
         backgroundColor="transparent"
         barStyle={'dark-content'}
       />
-      <SafeAreaView style = {{flex: 1}}>
+      <SafeAreaView style={{flex: 1}}>
         <Provider store={Store}>
           <PersistGate loading={null} persistor={persistor}>
             <StackNavigation />

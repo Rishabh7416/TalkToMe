@@ -1,19 +1,17 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import firestore from '@react-native-firebase/firestore'
-
+import {View, Text} from 'react-native';
+import React from 'react';
 
 export default function Trail() {
-
-  const onSend = () =>{
-    firestore().collection('Us').doc('uid').set({
-      name: 'Rishabh'
-    })
-  }
-
   return (
-    <View>
-      <Text onPress={() => onSend()}>Trail</Text>
+    <View
+      style={{
+        height: 50,
+        width: 50,
+        backgroundColor: 'red',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Text>Hello</Text>
     </View>
-  )
+  );
 }

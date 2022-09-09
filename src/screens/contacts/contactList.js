@@ -30,7 +30,6 @@ export default function ContactList() {
         data={userList}
         bounces={false}
         renderItem={({item}) => {
-          console.log('item', item);
           return (
             <TouchableOpacity
               onPress={() =>

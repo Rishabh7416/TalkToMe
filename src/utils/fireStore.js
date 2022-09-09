@@ -29,12 +29,28 @@ export const renderMessageList = (roomid, userID, successCallback) => {
     .doc(roomid)
     .collection('Messages')
     .onSnapshot(msg => {
+      // handleSeen(roomid, userID);
       const msgResult = msg._docs
         .map(element => element._data)
         .sort((x, y) => y.createdAt - x.createdAt)
         .filter(element => !element.deletedBy.includes(userID));
       successCallback(msgResult);
     });
+};
+
+export const handleSeen = async (roomid, userID) => {
+  const delivered = await firestore()
+    .collection('ChatRoom')
+    .doc(roomid)
+    .collection('Messages')
+    .get();
+  const batch = firestore()?.batch();
+  delivered?.forEach(documentSnapshot => {
+    if (documentSnapshot?._data.sentTo === userID) {
+      batch.update(documentSnapshot.ref, {received: true});
+    }
+  });
+  return batch.commit();
 };
 
 export const messageToFirestore = (roomid, messageID, messages) => {
@@ -74,8 +90,7 @@ export const renderStatus = (roomid, receiversID, successCallback) => {
     .doc(roomid)
     .collection('TypingStatus')
     .doc(receiversID)
-    .onSnapshot((status) => {
+    .onSnapshot(status => {
       successCallback(status?.data()?.isTyping);
     });
 };
-
