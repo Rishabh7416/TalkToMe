@@ -7,7 +7,7 @@ install! 'cocoapods', :deterministic_uuids => false
 target 'TalkTome' do
   config = use_native_modules!
   use_frameworks! :linkage => :static
-
+  pod 'RNFBStorage', :path => '../node_modules/@react-native-firebase/storage'
 
   # Flags change depending on the env values.
   flags = get_default_flags()

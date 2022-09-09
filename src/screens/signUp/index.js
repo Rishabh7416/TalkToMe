@@ -2,19 +2,37 @@ import React from 'react';
 import signUpStyles from './style';
 import Modal from 'react-native-modal';
 import ModalView from '../login/Modal';
+import {useDispatch} from 'react-redux';
+import storage from '@react-native-firebase/storage';
+import {
+  chatStructure,
+  setImagetoStorage,
+  setRefrence,
+  getImageLink,
+} from '../../utils/fireStore';
+import AddImage from '../../components/AddImage';
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import {strings} from '../../constants/string';
-import {chatStructure} from '../../utils/fireStore';
 import CustomButton from '../../components/button/customButton';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import FormTextInput from '../../components/textInput/formTextInput';
 import {normalize, vh, vw} from '../../utils/dimensions';
-import {useDispatch} from 'react-redux';
 import {aboutUsers} from '../../redux/reducers/reducers';
 
 const SignUpScreen = () => {
   const [userName, setUserName] = React.useState('');
   const [userAbout, setUserAbout] = React.useState('');
+  const [imagePath, setImagePath] = React.useState(
+    'https://cdn-icons-png.flaticon.com/512/747/747545.png',
+  );
+  const {
+    users: {uid},
+  } = useSelector(store => store.slice_reducer);
   const [isModalVisible, setModalVisible] = React.useState(false);
+  const reference = storage().ref(`${uid}`);
+
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const modalCallBack = user => {
@@ -25,17 +43,31 @@ const SignUpScreen = () => {
     );
   };
 
+  const addImageCallBack = image => {
+    Platform.OS === 'ios'
+      ? setImagePath(image.sourceURL)
+      : setImagePath(image.path);
+    console.log('addImage and path', imagePath);
+    setImagetoStorage(imagePath, reference, imageLink => {
+      console.log(imageLink);
+      setImagePath(imageLink);
+    });
+    console.log('ref', reference);
+  };
   return (
     <View style={signUpStyles.main}>
-      <Image
-        source={require('../../assets/images/signUpUI.png')}
-        style={{height: 240, width: 240, alignSelf: 'center'}}
-      />
       <View style={signUpStyles.secondViewStyle}>
         <Text style={signUpStyles.createText}>{strings.CreateAcc}</Text>
         <Text style={signUpStyles.connectText}>
           {strings.ConnectWithFriends}
         </Text>
+
+        <AddImage
+          imagePath={imagePath}
+          getImagePath={image => addImageCallBack(image)}
+        />
+
+        <Text style={signUpStyles.inputTitleText}>Name</Text>
         <Image
           source={require('../../assets/images/inactive-user.png')}
           style={styles.userProfileIcon}
@@ -64,7 +96,16 @@ const SignUpScreen = () => {
           text={'Join'}
           ViewStyle={signUpStyles.btnStyle}
           textStyle={signUpStyles.btnTextStyle}
-          onPress={() => setModalVisible(true)}
+          onPress={() => {
+            console.log('Onpress');
+            chatStructure({
+              name: userName,
+              about: userAbout,
+              profileImage: imagePath,
+              uid: uid,
+            });
+            navigation.navigate('routes');
+          }}
         />
         <Text style={signUpStyles.AreadyLoginViewStyle}>
           {'Already have an account? '}
