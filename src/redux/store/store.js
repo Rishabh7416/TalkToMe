@@ -4,7 +4,7 @@ import {
   getDefaultMiddleware,
 } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import sliceReducer from '../reducers/reducers';
+import sliceReducer, { aboutUsers } from '../reducers/reducers';
 import {persistReducer, persistStore} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -16,6 +16,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   slice_reducer: sliceReducer,
+  about_reducer: aboutUsers
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

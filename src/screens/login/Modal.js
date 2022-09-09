@@ -13,25 +13,26 @@ import {
 } from '../../utils/authFunction';
 import React, {useState} from 'react';
 import colors from '../../utils/colors';
-import LocalImages from '../../utils/localImages';
-import {vw, normalize, vh} from '../../utils/dimensions';
-import {useNavigation} from '@react-navigation/native';
-import CustomButton from '../../components/button/customButton';
+import {useDispatch} from 'react-redux';
 import {strings} from '../../constants/string';
-import {addUsers, addUid} from '../../redux/reducers/reducers';
-import {useDispatch, useSelector} from 'react-redux';
-import {chatStructure} from '../../utils/fireStore';
+import LocalImages from '../../utils/localImages';
+import {useNavigation} from '@react-navigation/native';
+import {addUsers} from '../../redux/reducers/reducers';
+import {vw, normalize, vh} from '../../utils/dimensions';
+import CustomButton from '../../components/button/customButton';
 import styles from './modalStyle';
 
-const Modal = ({callBack}) => {
-  const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
-  const navigation = useNavigation();
+const Modal = ({callBack, userDetails}) => {
+  console.log('userDetails', userDetails);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const [count, setCount] = useState(false);
   const [inputText, setInputText] = useState('');
-  const [selection, setSelection] = useState({start: 0, end: 0});
   const [confrimOtp, setConfirmOtp] = useState(null);
   const [loaderState, setLoaderState] = useState(false);
-  const [count, setCount] = useState(false);
+  const keypadArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, '+', 0, -1];
+  const [selection, setSelection] = useState({start: 0, end: 0});
+
 
   const onPress = item => {
     if (item === -1 && selection !== null) {
@@ -49,7 +50,6 @@ const Modal = ({callBack}) => {
     } else {
       let tempText = inputText?.split('');
       tempText.splice(selection.start, 0, item);
-      console.log(tempText.join(''));
       setSelection({start: selection.start + 1, end: selection.end + 1});
       setInputText(tempText.join(''));
     }
@@ -76,6 +76,7 @@ const Modal = ({callBack}) => {
         inputText,
         otpResponse => {
           setCount(true);
+          setInputText('');
           setSelection({start: 0, end: 0});
           setConfirmOtp(otpResponse);
           setLoaderState(false);
@@ -91,7 +92,9 @@ const Modal = ({callBack}) => {
         user => {
           dispatch({type: 'SWITCH_FUNCTION', switchFunctionPayload: false});
           dispatch(addUsers(user.user._user));
+          console.log('users', user);
           callBack(user);
+          // navigation.navigate('routes', {details: userDetails});
         },
         error => {
           console.log('errro from the verfication else catch', error);
@@ -103,9 +106,9 @@ const Modal = ({callBack}) => {
   return (
     <View style={styles.modalMainView}>
       {loaderState && (
-        <View style={styles.loaderViewStyle}>
+        <Text style={styles.loaderViewStyle}>
           <ActivityIndicator color={colors.primaryColor} size={'large'} />
-        </View>
+        </Text>
       )}
       <View style={styles.text1View}>
         <Text style={styles.text1}>
@@ -113,10 +116,12 @@ const Modal = ({callBack}) => {
         </Text>
       </View>
       <Text style={styles.text2}>
-        {!count ? strings.WeSendConfirmCode :` ${strings.WeSendToNumber} ${inputText}`}
+        {!count
+          ? strings.WeSendConfirmCode
+          : ` ${strings.WeSendToNumber} ${inputText}`}
       </Text>
 
-      <TextInput
+       <TextInput
         value={inputText}
         style={styles.textInputStyle}
         showSoftInputOnFocus={false}

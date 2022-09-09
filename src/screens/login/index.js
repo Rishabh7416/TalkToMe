@@ -1,20 +1,21 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import loginStyle from './loginStyle';
-import LocalImages from '../../utils/localImages';
-import Modal from 'react-native-modal';
 import ModalView from './Modal';
+import loginStyle from './loginStyle';
+import React,{ useState ,useEffect} from 'react';
+import {View,Image,Text} from 'react-native'
+import Modal from 'react-native-modal';
 import CustomButton from '../../components/button/customButton';
 import {useNavigation} from '@react-navigation/native';
 import {getData} from '../../utils/fireStore';
+import LocalImages from '../../utils/localImages';
 const LoginScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [Users, setUsers] = useState([]);
-
+  const navigation=useNavigation();
   useEffect(() => {
     console.log('Join Now Screen');
     getData(res => setUsers(res));
   }, []);
+
 
   const checkUser = uid => {
     console.log(Users);
@@ -26,13 +27,12 @@ const LoginScreen = () => {
       navigation.navigate('signup');
     }
   };
+
   const modalCallBack = user => {
     console.log('my modal call back funtuon with user uid', user);
     checkUser(user.user._user.uid);
     setModalVisible(false);
   };
-
-  const navigation = useNavigation();
 
   return (
     <View style={loginStyle.main}>
@@ -80,3 +80,6 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+
+
+
