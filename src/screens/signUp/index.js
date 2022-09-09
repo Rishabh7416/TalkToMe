@@ -37,7 +37,7 @@ const SignUpScreen = () => {
 
   const modalCallBack = user => {
     setModalVisible(false);
-    chatStructure({name: userName, about: userAbout, uid: user.user._user.uid});
+    chatStructure({name: userName, about: userAbout, uid: user.user._user.uid,});
     dispatch(
       aboutUsers({name: userName, about: userAbout, uid: user.user._user.uid}),
     );
@@ -64,7 +64,7 @@ const SignUpScreen = () => {
 
         <AddImage
           imagePath={imagePath}
-          getImagePath={image => addImageCallBack(image)}
+          getImagePath={addImageCallBack}
         />
 
         <Text style={signUpStyles.inputTitleText}>Name</Text>

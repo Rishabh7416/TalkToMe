@@ -15,9 +15,9 @@ const App = () => {
       />
       <SafeAreaView style={{flex: 1}}>
         <Provider store={Store}>
-          <PersistGate loading={null} persistor={persistor}>
+          {/* <PersistGate loading={null} persistor={persistor}> */}
             <StackNavigation />
-          </PersistGate>
+          {/* </PersistGate> */}
         </Provider>
       </SafeAreaView>
     </React.Fragment>

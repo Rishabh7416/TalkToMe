@@ -106,9 +106,9 @@ const Modal = ({callBack, userDetails}) => {
   return (
     <View style={styles.modalMainView}>
       {loaderState && (
-        <Text style={styles.loaderViewStyle}>
+        <View style={styles.loaderViewStyle}>
           <ActivityIndicator color={colors.primaryColor} size={'large'} />
-        </Text>
+        </View>
       )}
       <View style={styles.text1View}>
         <Text style={styles.text1}>
@@ -118,7 +118,7 @@ const Modal = ({callBack, userDetails}) => {
       <Text style={styles.text2}>
         {!count
           ? strings.WeSendConfirmCode
-          : ` ${strings.WeSendToNumber} ${inputText}`}
+          : ` ${strings.WeSendToNumber} +91**********`}
       </Text>
 
        <TextInput
