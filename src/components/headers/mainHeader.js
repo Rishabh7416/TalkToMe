@@ -1,17 +1,15 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {mainHeaderStyles} from './mainHeaderStyles';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
+import LocalImages from '../../utils/localImages';
 
 export default function MainHeader({
   handleNavigation,
   name,
   images,
   chatScreenPhoneIcon,
+  chatScreenVideoCallIcon,
 }) {
-  const addFunction = () => {
-    let arr = [];
-  };
-
   return (
     <View style={mainHeaderStyles.mainContainer}>
       <TouchableOpacity
@@ -39,35 +37,32 @@ export default function MainHeader({
           }>
           {name}
         </Text>
-        <Text>{'online'}</Text>
       </TouchableOpacity>
-      {
+      {name == 'Chat' ? (
+        <TouchableOpacity
+          style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Text>Edit Icon</Text>
+          {/* <Image
+            source={chatScreenPhoneIcon}
+            style={mainHeaderStyles.phoneCallIconStyle}
+          /> */}
+        </TouchableOpacity>
+      ) : (
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity>
             <Image
-              source={chatScreenPhoneIcon}
-              style={{
-                height: 32,
-                width: 32,
-                backgroundColor: 'black',
-                resizeMode: 'contain',
-                marginHorizontal: 40,
-              }}
+              source={LocalImages.phoneCallIcon}
+              style={mainHeaderStyles.phoneCallIconStyle}
             />
           </TouchableOpacity>
           <TouchableOpacity>
             <Image
-              source={chatScreenPhoneIcon}
-              style={{
-                height: 32,
-                width: 32,
-                backgroundColor: 'black',
-                resizeMode: 'contain',
-              }}
+              source={LocalImages.videoCallIcon}
+              style={mainHeaderStyles.videoCallIconStyle}
             />
           </TouchableOpacity>
         </View>
-      }
+      )}
     </View>
   );
 }

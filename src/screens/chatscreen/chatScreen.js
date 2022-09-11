@@ -1,11 +1,11 @@
 import React from 'react';
 import {
+  handleSeen,
+  renderStatus,
   renderMessageList,
   messageToFirestore,
   typingStatusTrueToFirestore,
   typingStatusFalseToFirestore,
-  renderStatus,
-  handleSeen,
 } from '../../utils/fireStore';
 import {Image} from 'react-native';
 import {useSelector} from 'react-redux';

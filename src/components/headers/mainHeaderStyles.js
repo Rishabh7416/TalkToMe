@@ -26,7 +26,18 @@ export const mainHeaderStyles = StyleSheet.create({
     borderRadius: 100 / 2,
     marginHorizontal: 15,
   },
-  headerStyle:{
-    marginHorizontal: 10
-  }
+  headerStyle: {
+    marginHorizontal: 10,
+  },
+  phoneCallIconStyle: {
+    height: 27,
+    width: 27,
+    resizeMode: 'contain',
+    marginHorizontal: 40,
+  },
+  videoCallIconStyle: {
+    height: 32,
+    width: 32,
+    resizeMode: 'contain',
+  },
 });

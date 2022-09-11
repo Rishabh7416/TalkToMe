@@ -11,7 +11,11 @@ const LocalImages = {
   chatIcon: require('../assets/images/chatIcon.png'),
   contactIcon: require('../assets/images/contactIcon.png'),
   cameraIcon: require('../assets/images/cameraIcon.png'),
-  settingsIcon: require('../assets/images/settingsIcon.png')
+  settingsIcon: require('../assets/images/settingsIcon.png'),
+  searchIcon: require('../assets/images/searchIcon.png'),
+  micIcon: require('../assets/images/micIcon.png'),
+  videoCallIcon: require('../assets/images/loginImages/videoCallIcon.png'),
+  phoneCallIcon: require('../assets/images/telephone.png')
 };
 
 export default LocalImages;

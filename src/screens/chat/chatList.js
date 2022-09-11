@@ -4,15 +4,14 @@ import {chatListStyles} from './chatListStyles';
 import LocalImages from '../../utils/localImages';
 import Story from '../../components/stories/story';
 import {userData} from '../../constants/localData';
+import {useNavigation} from '@react-navigation/native';
 import MainHeader from '../../components/headers/mainHeader';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import CustomUserList from '../../components/userList/customUserList';
 import CustomTextInput from '../../components/textInput/customTextInput';
 
 export default React.memo(function ChatList() {
   const navigation = useNavigation();
   const users = useSelector(Store => Store.slice_reducer);
-  // const [userlist, setUserList] = React.useState([]);
   const [filteredData, setFilteredData] = React.useState(users);
 
   const handleNavigation = () => navigation.goBack('Contacts');
@@ -24,13 +23,14 @@ export default React.memo(function ChatList() {
     setFilteredData(filtering);
   };
 
-  React.useEffect(() => {
-    // firestore().collection('ChatRoom').doc()
-  }, [])
-
   return (
     <React.Fragment>
-      <MainHeader handleNavigation={() => handleNavigation()} name={'Chat'} />
+      <MainHeader
+        name={'Chat'}
+        handleNavigation={() => handleNavigation()}
+        chatScreenPhoneIcon={LocalImages.phoneCallIcon}
+        chatScreenVideoCallIcon={LocalImages.videoCallIcon}
+      />
       <CustomTextInput
         placeholder="Search here"
         micIcon={LocalImages.micIcon}
